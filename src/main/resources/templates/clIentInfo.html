@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список клиентов</title>
+<!--    <link rel="stylesheet" type="text/css" href="style.css">-->
+</head>
+
+<body>
+<form th:action="@{/clients/{id}(id=${client.id})}" th:object="${client}" th:method="post">
+    <div>
+        <label>ID</label>
+        <input type="text" value="" name="email" th:field="${client.id}"/>
+        <br>
+        <label>Name</label>
+        <input type="text" value="" name="phone" th:field="${client.name}"/>
+        <br>
+        <label>Email</label>
+        <input type="text" value="" name="email" th:field="${client.email}"/>
+        <br>
+        <label>Phone</label>
+        <input type="text" value="" name="phone" th:field="${client.phone}"/>
+        <br>
+        <button type="submit">Обновить информацию</button>
+    </div>
+
+
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя клиента</th>
+        <th>Почта</th>
+        <th>Телефон</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.name}"></td>
+        <td th:text="${client.email}"></td>
+        <td th:text="${client.phone}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

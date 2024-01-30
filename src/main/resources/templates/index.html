@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список клиентов</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<h1>Добавление клиента:</h1>
+<form th:action="@{/clients}" th:object="${client}" th:method="post">
+    <div>
+        <label>Имя</label>
+        <input type="text" value="" name="name" th:field="*{name}"/>
+        <br>
+        <div th:errors="*{name}" class="error"/>
+        <br>
+        <button type="submit">Добавить клиента</button>
+    </div>
+
+
+</form>
+
+<h1>Клиенты:</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя клиента</th>
+        <th>Детали</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.name}"></td>
+        <td>
+        <a th:href="@{/clients/{id}(id=${client.id})}">Изменить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
