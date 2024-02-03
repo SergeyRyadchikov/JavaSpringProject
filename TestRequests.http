@@ -1,3 +1,8 @@
+GET http://localhost:8080/v1/clients/filter?gender=MALE
+Accept: application/json
+
+
+###
 ### Удалить клиента по id
 DELETE http://localhost:8080/v1/clients/4
 Accept: application/json
@@ -25,7 +30,8 @@ POST http://localhost:8080/v1/clients
 Content-Type: application/json
 
 {
-  "name": "Petya",
-  "email": "234asdf21@asd",
-  "phone": "12sadf432"
+  "name": "gor",
+  "email": "234asdf21@345asd",
+  "phone": "4243453456",
+  "gender": "MALE"
 }

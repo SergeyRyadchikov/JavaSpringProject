@@ -1,27 +1,30 @@
-package com.server.controller;
+package com.server.controller.restControllers;
 
 
 import com.server.model.Client;
+import com.server.model.Gender;
 import com.server.service.ClientService;
-import io.swagger.v3.oas.annotations.OpenAPI31;
-import io.swagger.v3.oas.models.annotations.OpenAPI30;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("v1/clients")
-public class RestController {
+@Tag(
+        name = "Пользователи",
+        description = "Все методы для работы с пользователями системы"
+)
+public class RestClientController {
 
     private final ClientService clientService;
 
     @Autowired
-    public RestController(ClientService clientService) {
+    public RestClientController(ClientService clientService) {
         this.clientService = clientService;
     }
     @RequestMapping(method = RequestMethod.POST)
@@ -63,6 +66,15 @@ public class RestController {
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+
+
+    @RequestMapping(value = "/filter",method = RequestMethod.GET)
+    public ResponseEntity<List<Client>> filterByGender(@RequestParam("gender")Gender gender){
+        final List<Client> clients = clientService.filterByGender(gender);
+        return clients != null &&  !clients.isEmpty()
+                ? new ResponseEntity<>(clients, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

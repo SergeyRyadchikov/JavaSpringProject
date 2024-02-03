@@ -4,6 +4,7 @@ package com.server.controller.templatesControllers;
 
 import com.server.model.Client;
 import com.server.service.ClientService;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 import java.util.List;
+
 
 @Controller
 public class ClientsController {

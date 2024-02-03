@@ -1,6 +1,7 @@
 package com.server.service;
 
 import com.server.model.Client;
+import com.server.model.Gender;
 
 import java.util.List;
 
@@ -40,4 +41,6 @@ public interface ClientService {
      * @return - true если клиент был удален, иначе false
      */
     boolean delete(int id);
+
+    List<Client> filterByGender(Gender gender);
 }

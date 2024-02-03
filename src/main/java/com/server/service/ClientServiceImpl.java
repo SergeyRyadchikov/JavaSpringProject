@@ -1,11 +1,16 @@
 package com.server.service;
 
 import com.server.model.Client;
+import com.server.model.Gender;
 import com.server.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientServiceImpl implements ClientService {
@@ -15,22 +20,24 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void create(Client client) {
-        clientRepository.create(client);
+        clientRepository.save(client);
     }
 
     @Override
     public List<Client> readAll() {
-        return clientRepository.getAll();
+        return clientRepository.findAll();
     }
 
     @Override
     public Client read(int id) {
-        return (Client) clientRepository.getId(id);
+        return (Client) clientRepository.getReferenceById(id);
     }
 
     @Override
     public boolean update(Client client, int id) {
-        if(clientRepository.update(id, client)){
+        if (clientRepository.existsById(id)) {
+            client.setId(id);
+            clientRepository.save(client);
             return true;
         } else {
             return false;
@@ -40,10 +47,17 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean delete(int id) {
-        if(clientRepository.delete(id)){
+        if (clientRepository.existsById(id)) {
+            clientRepository.deleteById(id);
             return true;
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<Client> filterByGender(Gender gender){
+        List<Client> filterClients = clientRepository.findClientByGender(gender);
+        return filterClients;
     }
 }
