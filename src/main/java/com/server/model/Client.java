@@ -6,9 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.EnumMap;
 
 
 @Entity
@@ -20,7 +18,7 @@ public class Client {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Schema(description = "Ижентификатор клиента")
+    @Schema(description = "Идентификатор клиента")
     private int id;
 
     @Column(nullable = false)
