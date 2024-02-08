@@ -10,37 +10,47 @@
     <div>
         <label>ID</label>
         <input type="text" value="" name="email" th:field="${client.id}"/>
-        <br>
+    </div>
+    <div>
         <label>Name</label>
         <input type="text" value="" name="phone" th:field="${client.name}"/>
-        <br>
+    </div>
+    <div>
         <label>Email</label>
         <input type="text" value="" name="email" th:field="${client.email}"/>
-        <br>
+    </div>
+    <div>
         <label>Phone</label>
         <input type="text" value="" name="phone" th:field="${client.phone}"/>
-        <br>
+    </div>
+    <div>
+        <label>Пол</label>
+        <input type="text" value="" name="phone" th:field="${client.gender}"/>
+    </div>
+    <div>
         <button type="submit">Обновить информацию</button>
     </div>
 
 
 </form>
 
-<table>
+<table style="border:1px solid grey">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Имя клиента</th>
-        <th>Почта</th>
-        <th>Телефон</th>
+        <th  style="border:1px solid grey">ID</th>
+        <th  style="border:1px solid grey">Имя клиента</th>
+        <th  style="border:1px solid grey">Почта</th>
+        <th  style="border:1px solid grey">Пол</th>
+        <th  style="border:1px solid grey">Телефон</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td th:text="${client.id}"></td>
-        <td th:text="${client.name}"></td>
-        <td th:text="${client.email}"></td>
-        <td th:text="${client.phone}"></td>
+        <td  style="border:1px solid grey" th:text="${client.id}"></td>
+        <td  style="border:1px solid grey" th:text="${client.name}"></td>
+        <td  style="border:1px solid grey" th:text="${client.email}"></td>
+        <td  style="border:1px solid grey" th:text="${client.gender}"></td>
+        <td  style="border:1px solid grey" th:text="${client.phone}"></td>
     </tr>
     </tbody>
 </table>
