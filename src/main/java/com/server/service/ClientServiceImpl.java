@@ -56,4 +56,14 @@ public class ClientServiceImpl implements ClientService {
         List<Client> filterClients = clientRepository.findClientByGender(gender);
         return filterClients;
     }
+
+    @Override
+    public Client findByPhone(String phone) {
+        Client client = clientRepository.findByPhone(phone);
+        if (client != null){
+            return client;
+        } else {
+            return null;
+        }
+    }
 }
