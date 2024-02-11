@@ -12,5 +12,6 @@ import java.util.List;
 public interface ClientRepository extends JpaRepository<Client, Integer> {
 
     List<Client> findClientByGender(Gender gender);
+
 }
 

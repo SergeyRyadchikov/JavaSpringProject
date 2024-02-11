@@ -4,13 +4,9 @@ import com.server.model.Client;
 import com.server.model.Gender;
 import com.server.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class ClientServiceImpl implements ClientService {
