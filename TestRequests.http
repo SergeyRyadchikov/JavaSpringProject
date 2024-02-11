@@ -1,14 +1,9 @@
-GET http://localhost:8080/v1/clients/filter?gender=MALE
-Accept: application/json
-
-
-###
 ### Удалить клиента по id
-DELETE http://localhost:8080/v1/clients/4
+DELETE http://localhost:8080/v1/clients/10
 Accept: application/json
 
 ### Получить клиента по id
-GET http://localhost:8080/v1/clients/3
+GET http://localhost:8080/v1/clients/8
 Accept: application/json
 
 ### Изменить клиента по id
@@ -35,3 +30,8 @@ Content-Type: application/json
   "phone": "4243453456",
   "gender": "MALE"
 }
+
+
+### Фильтр клиентов по полу
+GET http://localhost:8080/v1/clients/filter?gender=MALE
+Accept: application/hal+json

@@ -1,5 +1,7 @@
 package com.server.service;
 
+import com.server.annotation.LogException;
+import com.server.annotation.LogExecution;
 import com.server.model.Client;
 import com.server.model.Gender;
 import com.server.repository.ClientRepository;
@@ -15,21 +17,29 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
 
     @Override
+    @LogExecution
+    @LogException
     public void create(Client client) {
         clientRepository.save(client);
     }
 
     @Override
+    @LogExecution
+    @LogException
     public List<Client> readAll() {
         return clientRepository.findAll();
     }
 
     @Override
+    @LogExecution
+    @LogException
     public Client read(int id) {
         return (Client) clientRepository.getReferenceById(id);
     }
 
     @Override
+    @LogExecution
+    @LogException
     public boolean update(Client client, int id) {
         if (clientRepository.existsById(id)) {
             client.setId(id);
@@ -42,16 +52,20 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    @LogExecution
+    @LogException
     public boolean delete(int id) {
         if (clientRepository.existsById(id)) {
             clientRepository.deleteById(id);
             return true;
         } else {
-            return false;
+            throw new RuntimeException("Клиента с " + id + " не найдено");
         }
     }
 
     @Override
+    @LogExecution
+    @LogException
     public List<Client> filterByGender(Gender gender){
         List<Client> filterClients = clientRepository.findClientByGender(gender);
         return filterClients;

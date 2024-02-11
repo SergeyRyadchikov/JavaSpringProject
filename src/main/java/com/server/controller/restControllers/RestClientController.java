@@ -1,14 +1,18 @@
 package com.server.controller.restControllers;
 
 
+import com.server.annotation.LogException;
+import com.server.annotation.LogExecution;
 import com.server.model.Client;
 import com.server.model.Gender;
 import com.server.service.ClientService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
 
 
 import java.util.List;
@@ -42,7 +46,7 @@ public class RestClientController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Client> read(@PathVariable(name = "id") int id) {
+    public ResponseEntity<?> read(@PathVariable(name = "id") int id) {
         final Client client = clientService.read(id);
 
         return client != null

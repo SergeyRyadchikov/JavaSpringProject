@@ -23,7 +23,7 @@ public class Purchase {
     private int id;
 
     @Column
-    @OneToMany
+    @ManyToMany
     @Schema(description = "Список продуктов или услуг")
     private List<Product> productList;
 
