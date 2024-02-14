@@ -35,3 +35,13 @@ Content-Type: application/json
   "phone": "4243453456",
   "gender": "MALE"
 }
+
+
+### Авторизация
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+"phone": "+79658452615",
+"password": "123456"
+}

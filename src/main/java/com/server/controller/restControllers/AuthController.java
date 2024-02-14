@@ -5,15 +5,12 @@ import com.server.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController()
-@RequestMapping("v1/auth")
+@RequestMapping()
 @Tag(
         name = "Авторизация",
         description = "Метод авторизации пользователя"
@@ -42,7 +39,7 @@ public class AuthController {
         this.moderatorService = moderatorService;
     }
 
-    @PostMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
 
         return loginService.login(userDTO.phone(), userDTO.password())

@@ -1,6 +1,8 @@
 package com.server.auth;
 
 import com.server.service.JwtTokenService;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import jakarta.servlet.FilterChain;
@@ -14,8 +16,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import java.io.IOException;
 
 @Component
@@ -34,7 +34,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             final String token = request.getHeader("Authorization");
 
-            if (token == null || token.startsWith("Bearer ") ) {
+            if (token != null || token.startsWith("Bearer ") ) {
                 // Validate the JWT token
                 //Декодирование токена
                 String tokenWithoutBearer = token.substring(7);
@@ -48,19 +48,19 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.addFilterBefore(
-                this,
-                UsernamePasswordAuthenticationFilter.class
-        );
-
-        http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/login").permitAll()
-                .anyRequest().authenticated());
-
-        http.csrf(AbstractHttpConfigurer::disable);
-
-        return http.build();
-    }
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http.addFilterBefore(
+//                this,
+//                UsernamePasswordAuthenticationFilter.class
+//        );
+//
+//        http.authorizeHttpRequests(auth -> auth
+//                .requestMatchers("/**").permitAll()
+//                .anyRequest().authenticated());
+//
+//        http.csrf(AbstractHttpConfigurer::disable);
+//
+//        return http.build();
+//    }
 }
