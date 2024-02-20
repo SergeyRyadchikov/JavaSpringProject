@@ -1,7 +1,6 @@
 package com.server.service;
 
 import com.server.model.ApiUsers;
-import com.server.model.Moderator;
 import com.server.repository.ApiUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

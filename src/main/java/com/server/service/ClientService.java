@@ -2,7 +2,6 @@ package com.server.service;
 
 import com.server.model.Client;
 import com.server.model.Gender;
-
 import java.util.List;
 
 public interface ClientService {

@@ -2,8 +2,6 @@ package com.server.controller.restControllers;
 
 
 import com.server.model.ApiUsers;
-import com.server.annotation.LogException;
-import com.server.annotation.LogExecution;
 import com.server.model.Client;
 import com.server.model.Gender;
 import com.server.model.Role;
@@ -12,11 +10,9 @@ import com.server.service.ClientService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpStatusCodeException;
 
 
 import java.util.List;

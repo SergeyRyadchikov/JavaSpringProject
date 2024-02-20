@@ -4,7 +4,6 @@ import com.server.model.Purchase;
 import com.server.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
