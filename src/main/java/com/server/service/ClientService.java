@@ -43,4 +43,6 @@ public interface ClientService {
     boolean delete(int id);
 
     List<Client> filterByGender(Gender gender);
+
+    Client findByPhone(String phone);
 }
