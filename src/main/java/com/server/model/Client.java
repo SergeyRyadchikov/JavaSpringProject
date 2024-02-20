@@ -31,7 +31,7 @@ public class Client {
     @Schema(description = "Электронная почта клиента")
     private String email;
 
-    @Column(nullable = true)
+    @Column(nullable = true, unique = true)
     @Schema(description = "Номер телефона клиента")
     @Size(min=6, max=12)
     private String phone;

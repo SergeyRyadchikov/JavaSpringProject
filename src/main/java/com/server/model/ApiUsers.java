@@ -26,7 +26,6 @@ public class ApiUsers {
 
     @Column(nullable = false)
     @NotBlank
-    @Size(min=2, max=50)
     private String password;
 
 

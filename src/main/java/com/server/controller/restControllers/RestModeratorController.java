@@ -10,12 +10,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/moderators")
+@RequestMapping("/v1")
 @Tag(
         name = "Администраторы",
         description = "Все методы для работы с администраторами системы"
@@ -32,7 +34,7 @@ public class RestModeratorController {
         this.apiUsersService = apiUsersService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/new-moderator", method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody Moderator moderator, @RequestParam("Пароль") String password) {
         ApiUsers apiUser = new ApiUsers();
         apiUser.setPhone(moderator.getPhone());
@@ -43,7 +45,8 @@ public class RestModeratorController {
         return new ResponseEntity<>(moderator, HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/moderators", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<Moderator>> read() {
         final List<Moderator> moderators = moderatorService.readAll();
 
@@ -51,7 +54,8 @@ public class RestModeratorController {
                 ? new ResponseEntity<>(moderators, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/moserators/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Moderator> read(@PathVariable(name = "id") int id) {
         final Moderator moderator = moderatorService.read(id);
 
@@ -60,7 +64,8 @@ public class RestModeratorController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/moderators/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Moderator moderator) {
         final boolean updated = moderatorService.update(moderator, id);
 
@@ -69,7 +74,8 @@ public class RestModeratorController {
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/moderators/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable(name = "id") int id) {
         final boolean deleted = moderatorService.delete(id);
 

@@ -26,16 +26,25 @@ GET http://localhost:8080/v1/clients
 Accept: application/json
 
 ### Создать клиента
-POST http://localhost:8080/v1/clients
+POST http://localhost:8080/v1/new-client
 Content-Type: application/json
 
 {
-  "name": "gor",
-  "email": "234asdf21@345asd",
-  "phone": "4243453456",
-  "gender": "MALE"
+  "name": "Nina",
+  "email": "234asdffds21@345asd",
+  "phone": "983475763",
+  "gender": "FEMALE"
 }
 
+
+### Создать модератора
+POST http://localhost:8080/v1/moderators/new-moderator
+Content-Type: application/json
+
+{
+  "name": "Nina",
+  "phone": "983473455763"
+}
 
 ### Авторизация
 POST http://localhost:8080/login

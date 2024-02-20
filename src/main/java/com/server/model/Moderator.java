@@ -19,7 +19,7 @@ public class Moderator {
     @Schema(description = "Идентификатор администратора")
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotBlank
     @Size(min=2, max=50)
     @Schema(description = "Имя администратора")

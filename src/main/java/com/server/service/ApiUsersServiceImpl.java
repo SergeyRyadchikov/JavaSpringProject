@@ -4,9 +4,11 @@ import com.server.model.ApiUsers;
 import com.server.model.Moderator;
 import com.server.repository.ApiUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ApiUsersServiceImpl implements ApiUsersService<ApiUsers, Integer> {
@@ -14,9 +16,13 @@ public class ApiUsersServiceImpl implements ApiUsersService<ApiUsers, Integer> {
     @Autowired
     private ApiUsersRepository apiUsersRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public void create(ApiUsers apiUsers) {
+        apiUsers.setPassword(passwordEncoder.encode(apiUsers.getPassword()));
         apiUsersRepository.save(apiUsers);
     }
 
@@ -56,14 +62,14 @@ public class ApiUsersServiceImpl implements ApiUsersService<ApiUsers, Integer> {
 
 
     @Override
-    public ApiUsers findApiUsersByPhone(String phone) {
+    public Optional<ApiUsers> findApiUsersByPhone(String phone) {
 
-        ApiUsers apiUser = apiUsersRepository.findApiUsersByPhone(phone);
+        Optional<ApiUsers> apiUser = apiUsersRepository.findApiUsersByPhone(phone);
 
-        if (apiUser != null) {
-            return apiUser;
+        if (apiUser.isEmpty()) {
+            return Optional.empty();
         } else {
-            return null;
+            return apiUser;
         }
     }
 }
