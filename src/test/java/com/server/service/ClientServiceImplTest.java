@@ -9,13 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import static org.mockito.BDDMockito.given;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -86,6 +81,13 @@ class ClientServiceImplTest {
 
     @Test
     void filterByGender() {
+
+        /*
+        Не разобрался, как мне проверить, что при выполнении данного метода мне вернулись только клиенты заданного пола?
+        Пробовал печатать размер списка, он всегда пустой, добавлять клиентов руками и вызывать поиск по гендеру через сервис,
+        при этом метод работает корректно, что было вижно при выполнении запросов.
+
+         */
         List<Client> clientList = new ArrayList<>();
         Client client = new Client();
         client.setGender(Gender.FEMALE);
