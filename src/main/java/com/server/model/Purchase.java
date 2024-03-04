@@ -1,11 +1,14 @@
 package com.server.model;
 
+import com.server.model.products.Goods;
+import com.server.model.products.Product;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.List;
 
 @Entity
@@ -21,10 +24,10 @@ public class Purchase {
     @Schema(description = "Идентификатор заказа")
     private int id;
 
-    @Column
+    @Column(unique = false)
     @ManyToMany
     @Schema(description = "Список продуктов или услуг")
-    private List<Product> productList;
+    private List<Goods> productList;
 
     @ManyToOne()
     @JoinColumn(name = "client_id")
@@ -36,11 +39,11 @@ public class Purchase {
     @Schema(description = "Сумма заказа")
     private int purchaseAmount;
 
-    public Purchase(List<Product> productList, Client client) {
+    public Purchase(List<Goods> productList, Client client) {
         this.productList = productList;
         this.client = client;
         int resultAmount = 0;
-        for (Product product: productList) {
+        for (Goods product: productList) {
             resultAmount += product.getAmount();
         }
         this.purchaseAmount = resultAmount;

@@ -1,10 +1,11 @@
 package com.server.controller.restControllers;
 
-import com.server.model.Product;
 import com.server.model.Purchase;
+import com.server.model.products.Goods;
+import com.server.model.products.Product;
 import com.server.service.ClientServiceImpl;
-import com.server.service.ProductServiceImpl;
 import com.server.service.PurchaseServiceImpl;
+import com.server.service.products.GoodsServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +25,15 @@ public class RestPurchaseController {
 
 
     private final PurchaseServiceImpl purchaseService;
-    private final ProductServiceImpl productService;
+    private final GoodsServiceImpl productService;
     private final ClientServiceImpl clientService;
 
     @Autowired
-    public RestPurchaseController(PurchaseServiceImpl purchaseService, ProductServiceImpl productService, ClientServiceImpl clientService) {
+    public RestPurchaseController(
+            PurchaseServiceImpl purchaseService,
+            GoodsServiceImpl productService,
+            ClientServiceImpl clientService
+    ) {
         this.purchaseService = purchaseService;
         this.productService = productService;
         this.clientService = clientService;
@@ -37,7 +42,7 @@ public class RestPurchaseController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestParam("client id")int clientId, @RequestParam("product id")int[] productId)
     {
-        List<Product> products = new ArrayList<>();
+        List<Goods> products = new ArrayList<>();
         for (int i = 0; i < productId.length; i++ ){
             products.add(productService.read(productId[i]));
         }
