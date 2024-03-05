@@ -1,4 +1,4 @@
-package com.server.dto;
+package com.server.dto.products;
 
 public record ServicesDTO (
         String productName,

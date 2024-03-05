@@ -1,8 +1,9 @@
-package com.server.service;
+package com.server.service.users.moderatorService;
 
 
-import com.server.model.Moderator;
-import com.server.repository.ModeratorRepository;
+import com.server.model.users.Moderator;
+import com.server.repository.users.ModeratorRepository;
+import com.server.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

@@ -1,10 +1,7 @@
 package com.server.controller.templatesControllers;
 
-
-
-import com.server.model.Client;
-import com.server.service.ClientService;
-import io.swagger.v3.oas.annotations.Hidden;
+import com.server.model.users.Client;
+import com.server.service.users.clientsService.ClientServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +17,10 @@ import java.util.List;
 @Controller
 public class ClientsController {
 
-    private final ClientService clientService;
+    private final ClientServiceImpl clientService;
 
     @Autowired
-    public ClientsController(ClientService clientService) {
+    public ClientsController(ClientServiceImpl clientService) {
         this.clientService = clientService;
     }
 

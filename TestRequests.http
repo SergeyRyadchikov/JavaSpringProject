@@ -26,9 +26,9 @@ Content-Type: application/json
 
 {
   "name": "Nina",
-  "email": "234asdffds21@345asd",
   "phone": "983475763",
-  "gender": "FEMALE"
+  "password": "111"
+
 }
 
 
@@ -38,7 +38,8 @@ Content-Type: application/json
 
 {
   "name": "Nina",
-  "phone": "983473455763"
+  "phone": "983473455763",
+  "password": "111"
 }
 
 ### Авторизация

@@ -1,4 +1,4 @@
-package com.server.model;
+package com.server.model.users;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

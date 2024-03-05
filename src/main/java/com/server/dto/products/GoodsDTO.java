@@ -1,4 +1,4 @@
-package com.server.dto;
+package com.server.dto.products;
 
 import com.server.model.products.CategoryGoods;
 

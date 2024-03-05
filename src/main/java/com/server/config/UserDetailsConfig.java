@@ -1,6 +1,6 @@
 package com.server.config;
 
-import com.server.model.ApiUsers;
+import com.server.model.users.ApiUsers;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

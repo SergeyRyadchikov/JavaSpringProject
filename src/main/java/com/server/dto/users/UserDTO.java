@@ -1,4 +1,4 @@
-package com.server.dto;
+package com.server.dto.users;
 
 public record UserDTO(
         String phone,

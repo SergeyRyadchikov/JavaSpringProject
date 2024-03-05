@@ -1,6 +1,6 @@
-package com.server.repository;
+package com.server.repository.users;
 
-import com.server.model.ApiUsers;
+import com.server.model.users.ApiUsers;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

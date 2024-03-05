@@ -2,8 +2,7 @@ package com.server.controller.restControllers;
 
 import com.server.model.Purchase;
 import com.server.model.products.Goods;
-import com.server.model.products.Product;
-import com.server.service.ClientServiceImpl;
+import com.server.service.users.clientsService.ClientServiceImpl;
 import com.server.service.PurchaseServiceImpl;
 import com.server.service.products.GoodsServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;

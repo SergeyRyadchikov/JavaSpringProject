@@ -5,7 +5,6 @@ import com.server.repository.products.GoodsRepository;
 import com.server.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

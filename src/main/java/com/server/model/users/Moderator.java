@@ -1,4 +1,4 @@
-package com.server.model;
+package com.server.model.users;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;

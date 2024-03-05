@@ -1,8 +1,8 @@
-package com.server.service;
+package com.server.service.users;
 
 import com.server.config.UserDetailsConfig;
-import com.server.model.ApiUsers;
-import com.server.repository.ApiUsersRepository;
+import com.server.model.users.ApiUsers;
+import com.server.repository.users.ApiUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,6 +1,5 @@
 package com.server.service;
 
-
 import java.util.List;
 
 public interface AppService<T, tId> {

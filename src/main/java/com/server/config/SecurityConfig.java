@@ -1,7 +1,7 @@
 package com.server.config;
 
 
-import com.server.service.UserDetailsServiceImpl;
+import com.server.service.users.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;

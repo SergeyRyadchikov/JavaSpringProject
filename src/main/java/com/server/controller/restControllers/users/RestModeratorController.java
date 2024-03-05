@@ -1,17 +1,16 @@
-package com.server.controller.restControllers;
+package com.server.controller.restControllers.users;
 
-import com.server.model.ApiUsers;
-import com.server.model.Client;
-import com.server.model.Moderator;
-import com.server.model.Role;
-import com.server.service.ApiUsersService;
-import com.server.service.ModeratorServiceImpl;
+import com.server.dto.users.ModeratorDTO;
+import com.server.dto.users.ModeratorRegDTO;
+import com.server.model.users.ApiUsers;
+import com.server.model.users.Moderator;
+import com.server.model.users.Role;
+import com.server.service.users.moderatorService.ModeratorServiceFacadeImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,24 +23,28 @@ import java.util.List;
 )
 public class RestModeratorController {
 
-    private final ModeratorServiceImpl moderatorService;
-
-    private final ApiUsersService apiUsersService;
+    private final ModeratorServiceFacadeImpl moderatorService;
 
     @Autowired
-    public RestModeratorController(ModeratorServiceImpl moderatorService, ApiUsersService apiUsersService) {
+    public RestModeratorController(ModeratorServiceFacadeImpl moderatorService) {
         this.moderatorService = moderatorService;
-        this.apiUsersService = apiUsersService;
     }
 
+
     @RequestMapping(value = "/new-moderator", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody Moderator moderator, @RequestParam("Пароль") String password) {
+    public ResponseEntity<?> create(@RequestBody ModeratorRegDTO moderatorRegDTO) {
+
         ApiUsers apiUser = new ApiUsers();
-        apiUser.setPhone(moderator.getPhone());
+        apiUser.setPhone(moderatorRegDTO.phone());
         apiUser.setRole(Role.ADMIN);
-        apiUser.setPassword(password);
-        apiUsersService.create(apiUser);
-        moderatorService.create(moderator);
+        apiUser.setPassword(moderatorRegDTO.password());
+
+        Moderator moderator = new Moderator();
+        moderator.setName(moderatorRegDTO.name());
+        moderator.setPhone(moderatorRegDTO.phone());
+
+        moderatorService.create(moderator, apiUser);
+
         return new ResponseEntity<>(moderator, HttpStatus.CREATED);
     }
 
@@ -66,7 +69,14 @@ public class RestModeratorController {
 
     @RequestMapping(value = "/moderators/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Moderator moderator) {
+    public ResponseEntity<?> update(
+            @PathVariable(name = "id") int id,
+            @RequestBody ModeratorDTO moderatorDTO)
+    {
+        Moderator moderator = new Moderator();
+        moderator.setName(moderatorDTO.name());
+        moderator.setPhone(moderatorDTO.phone());
+
         final boolean updated = moderatorService.update(moderator, id);
 
         return updated

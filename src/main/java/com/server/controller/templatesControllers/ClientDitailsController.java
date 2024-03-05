@@ -1,8 +1,7 @@
 package com.server.controller.templatesControllers;
 
-import com.server.model.Client;
-import com.server.service.ClientService;
-import io.swagger.v3.oas.annotations.Hidden;
+import com.server.model.users.Client;
+import com.server.service.users.clientsService.ClientServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ClientDitailsController {
 
-    private final ClientService clientService;
+    private final ClientServiceImpl clientService;
 
     @Autowired
-    public ClientDitailsController(ClientService clientService) {
+    public ClientDitailsController(ClientServiceImpl clientService) {
         this.clientService = clientService;
     }
 

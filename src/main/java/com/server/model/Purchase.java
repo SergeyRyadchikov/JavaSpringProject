@@ -1,14 +1,14 @@
 package com.server.model;
 
 import com.server.model.products.Goods;
-import com.server.model.products.Product;
+import com.server.model.products.Services;
+import com.server.model.users.Client;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
 
 @Entity
@@ -26,8 +26,13 @@ public class Purchase {
 
     @Column(unique = false)
     @ManyToMany
-    @Schema(description = "Список продуктов или услуг")
+    @Schema(description = "Список товаров")
     private List<Goods> productList;
+
+    @Column(unique = false)
+    @ManyToMany
+    @Schema(description = "Список услуг")
+    private List<Services> servicesList;
 
     @ManyToOne()
     @JoinColumn(name = "client_id")

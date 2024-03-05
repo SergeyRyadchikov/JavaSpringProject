@@ -1,6 +1,6 @@
 package com.server.controller.restControllers.products;
 
-import com.server.dto.GoodsDTO;
+import com.server.dto.products.GoodsDTO;
 import com.server.model.products.*;
 import com.server.service.products.GoodsServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,15 +19,15 @@ import java.util.List;
 )
 public class RestGoodsController {
 
-    private final GoodsServiceImpl productService;
+    private final GoodsServiceImpl goodsService;
     private final ProductCreator<Goods> productCreator;
 
     @Autowired
     public RestGoodsController(
-            GoodsServiceImpl productService,
+            GoodsServiceImpl goodsService,
             ProductCreator<Goods> productCreator
     ) {
-        this.productService = productService;
+        this.goodsService = goodsService;
         this.productCreator = productCreator;
     }
 
@@ -37,14 +37,14 @@ public class RestGoodsController {
         goods.setProductName(goodsDTO.productName());
         goods.setCategory(goodsDTO.category());
         goods.setAmount(goodsDTO.amount());
-        productService.create(goods);
+        goodsService.create(goods);
         return new ResponseEntity<>(goods, HttpStatus.CREATED);
 
     }
 
     @RequestMapping(value = "/goods", method = RequestMethod.GET)
     public ResponseEntity<List<Goods>> read() {
-        final List<Goods> products = productService.readAll();
+        final List<Goods> products = goodsService.readAll();
 
         return products != null && !products.isEmpty()
                 ? new ResponseEntity<>(products, HttpStatus.OK)
@@ -53,7 +53,7 @@ public class RestGoodsController {
 
     @RequestMapping(value = "/goods/{id}", method = RequestMethod.GET)
     public ResponseEntity<Product> read(@PathVariable(name = "id") int id) {
-        final Product product = productService.read(id);
+        final Product product = goodsService.read(id);
 
         return product != null
                 ? new ResponseEntity<>(product, HttpStatus.OK)
@@ -66,7 +66,7 @@ public class RestGoodsController {
         goods.setProductName(goodsDTO.productName());
         goods.setCategory(goodsDTO.category());
         goods.setAmount(goodsDTO.amount());
-        final boolean updated = productService.update(goods, id);
+        final boolean updated = goodsService.update(goods, id);
 
         return updated
                 ? new ResponseEntity<>(goods, HttpStatus.OK)
@@ -75,7 +75,7 @@ public class RestGoodsController {
 
     @RequestMapping(value = "/goods/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable(name = "id") int id) {
-        final boolean deleted = productService.delete(id);
+        final boolean deleted = goodsService.delete(id);
 
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)

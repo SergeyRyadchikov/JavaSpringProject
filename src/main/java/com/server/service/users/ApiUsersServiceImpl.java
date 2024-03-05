@@ -1,11 +1,10 @@
-package com.server.service;
+package com.server.service.users;
 
-import com.server.model.ApiUsers;
-import com.server.repository.ApiUsersRepository;
+import com.server.model.users.ApiUsers;
+import com.server.repository.users.ApiUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
