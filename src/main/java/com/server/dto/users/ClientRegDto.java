@@ -1,6 +1,6 @@
 package com.server.dto.users;
 
-public record ModeratorRegDTO(
+public record ClientRegDto(
         String name,
         String phone,
         String password

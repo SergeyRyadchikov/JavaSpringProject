@@ -1,13 +1,19 @@
 package com.server.controller.restControllers.products;
 
-import com.server.dto.products.GoodsDTO;
-import com.server.model.products.*;
+import com.server.dto.products.GoodsDto;
+import com.server.model.products.Goods;
+import com.server.model.products.Product;
+import com.server.model.products.ProductCreator;
 import com.server.service.products.GoodsServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -31,13 +37,17 @@ public class RestGoodsController {
         this.productCreator = productCreator;
     }
 
+
     @RequestMapping(value = "/goods", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody GoodsDTO goodsDTO) {
+    public ResponseEntity<?> create(@RequestBody GoodsDto goodsDTO) {
+
         Goods goods = productCreator.createProduct();
         goods.setProductName(goodsDTO.productName());
         goods.setCategory(goodsDTO.category());
         goods.setAmount(goodsDTO.amount());
+
         goodsService.create(goods);
+
         return new ResponseEntity<>(goods, HttpStatus.CREATED);
 
     }
@@ -61,7 +71,7 @@ public class RestGoodsController {
     }
 
     @RequestMapping(value = "/goods/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody GoodsDTO goodsDTO) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody GoodsDto goodsDTO) {
         Goods goods = productCreator.createProduct();
         goods.setProductName(goodsDTO.productName());
         goods.setCategory(goodsDTO.category());

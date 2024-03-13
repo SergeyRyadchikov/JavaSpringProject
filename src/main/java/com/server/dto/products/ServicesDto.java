@@ -1,6 +1,6 @@
 package com.server.dto.products;
 
-public record ServicesDTO (
+public record ServicesDto(
         String productName,
         int amount
 ){

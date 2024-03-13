@@ -1,7 +1,7 @@
 package com.server.controller.restControllers.users;
 
-import com.server.dto.users.ModeratorDTO;
-import com.server.dto.users.ModeratorRegDTO;
+import com.server.dto.users.ModeratorDto;
+import com.server.dto.users.ModeratorRegDto;
 import com.server.model.users.ApiUsers;
 import com.server.model.users.Moderator;
 import com.server.model.users.Role;
@@ -32,7 +32,7 @@ public class RestModeratorController {
 
 
     @RequestMapping(value = "/new-moderator", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody ModeratorRegDTO moderatorRegDTO) {
+    public ResponseEntity<?> create(@RequestBody ModeratorRegDto moderatorRegDTO) {
 
         ApiUsers apiUser = new ApiUsers();
         apiUser.setPhone(moderatorRegDTO.phone());
@@ -71,7 +71,7 @@ public class RestModeratorController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> update(
             @PathVariable(name = "id") int id,
-            @RequestBody ModeratorDTO moderatorDTO)
+            @RequestBody ModeratorDto moderatorDTO)
     {
         Moderator moderator = new Moderator();
         moderator.setName(moderatorDTO.name());

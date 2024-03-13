@@ -1,6 +1,6 @@
 package com.server.controller.restControllers.products;
 
-import com.server.dto.products.ServicesDTO;
+import com.server.dto.products.ServicesDto;
 import com.server.model.products.Product;
 import com.server.model.products.ProductCreator;
 import com.server.model.products.Services;
@@ -27,7 +27,7 @@ public class RestServicesController {
     }
 
     @RequestMapping(value = "/services", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody ServicesDTO servicesDTO) {
+    public ResponseEntity<?> create(@RequestBody ServicesDto servicesDTO) {
         Services services = productCreator.createProduct();
         services.setProductName(servicesDTO.productName());
         services.setAmount(servicesDTO.amount());
@@ -50,7 +50,7 @@ public class RestServicesController {
     }
 
     @RequestMapping(value = "/services/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody ServicesDTO servicesDTO) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody ServicesDto servicesDTO) {
         Services services = productCreator.createProduct();
         services.setProductName(servicesDTO.productName());
         services.setAmount(servicesDTO.amount());

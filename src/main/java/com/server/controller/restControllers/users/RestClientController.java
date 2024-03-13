@@ -1,7 +1,7 @@
 package com.server.controller.restControllers.users;
 
-import com.server.dto.users.ClientDTO;
-import com.server.dto.users.ClientRegDTO;
+import com.server.dto.users.ClientDto;
+import com.server.dto.users.ClientRegDto;
 import com.server.model.users.ApiUsers;
 import com.server.model.users.Client;
 import com.server.model.users.Gender;
@@ -31,7 +31,7 @@ public class RestClientController {
     }
 
     @RequestMapping(value = "/new-client",method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody ClientRegDTO clientRegDTO) {
+    public ResponseEntity<?> create(@RequestBody ClientRegDto clientRegDTO) {
 
         Client client = new Client();
         client.setPhone(clientRegDTO.phone());
@@ -68,7 +68,7 @@ public class RestClientController {
 
     @RequestMapping(value = "/clients/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody ClientDto clientDTO) {
 
         Client client = new Client();
         client.setName(clientDTO.name());

@@ -1,6 +1,6 @@
 package com.server.dto.users;
 
-public record UserDTO(
+public record UserDto(
         String phone,
         String password) {
 }
