@@ -1,10 +1,10 @@
 package com.server.controller.restControllers;
 
 import com.server.model.Purchase;
-import com.server.model.products.Goods;
+import com.server.model.product.Goods;
 import com.server.service.users.clientsService.ClientServiceImpl;
 import com.server.service.PurchaseServiceImpl;
-import com.server.service.products.GoodsServiceImpl;
+import com.server.service.product.GoodsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,13 +24,13 @@ public class RestPurchaseController {
 
 
     private final PurchaseServiceImpl purchaseService;
-    private final GoodsServiceImpl productService;
+    private final GoodsService productService;
     private final ClientServiceImpl clientService;
 
     @Autowired
     public RestPurchaseController(
             PurchaseServiceImpl purchaseService,
-            GoodsServiceImpl productService,
+            GoodsService productService,
             ClientServiceImpl clientService
     ) {
         this.purchaseService = purchaseService;
