@@ -1,56 +1,89 @@
-package com.server.service.products;
+package com.server.service.product;
 
-import com.server.model.products.Services;
-import com.server.repository.products.ServicesRepository;
-import com.server.service.AppService;
+import com.server.dto.products.ServicesDto;
+import com.server.model.product.Services;
+import com.server.repository.product.ServicesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ServiceForServicesImpl implements AppService<Services, Integer> {
+public class ServiceForServices {
 
     @Autowired
     private final ServicesRepository servicesRepository;
 
-    public ServiceForServicesImpl(ServicesRepository servicesRepository) {
+
+    public ServiceForServices(ServicesRepository servicesRepository) {
+
         this.servicesRepository = servicesRepository;
+
     }
 
-    @Override
-    public void create(Services services) {
+
+    public Services create(ServicesDto servicesDto) {
+
+        Services services = new Services();
+        services.setProductName(servicesDto.productName());
+        services.setAmount(servicesDto.amount());
+
         servicesRepository.save(services);
+
+        return services;
+
     }
 
-    @Override
+
     public List<Services> readAll() {
+
         return servicesRepository.findAll();
+
     }
 
-    @Override
+
     public Services read(Integer id) {
+
         return servicesRepository.getReferenceById(id);
+
     }
 
-    @Override
-    public boolean update(Services services, Integer id) {
+
+    public Services update(ServicesDto servicesDto, Integer id) {
+
         if (servicesRepository.existsById(id)) {
+
+            Services services = new Services();
             services.setId(id);
+            services.setProductName(servicesDto.productName());
+            services.setAmount(servicesDto.amount());
+
             servicesRepository.save(services);
-            return true;
+
+            return services;
+
         } else {
-            return false;
+
+            return null;
+
         }
+
     }
 
-    @Override
+
     public boolean delete(Integer id) {
+
         if (servicesRepository.existsById(id)) {
+
             servicesRepository.deleteById(id);
+
             return true;
+
         } else {
+
             return false;
+
         }
+
     }
 
 }

@@ -1,4 +1,4 @@
-package com.server.model.products;
+package com.server.model.product;
 
 public enum CategoryGoods {
 

@@ -1,4 +1,4 @@
-package com.server.model.products;
+package com.server.model.product;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(description = "Товар")
-public class Goods implements Product{
+public class Goods {
 
     public static final String PRODUCT_TYPE = "GOODS";
 
