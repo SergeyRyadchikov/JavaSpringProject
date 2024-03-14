@@ -1,6 +1,7 @@
 package com.server.model.product;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,9 +15,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(description = "Товар")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Goods {
-
-    public static final String PRODUCT_TYPE = "GOODS";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

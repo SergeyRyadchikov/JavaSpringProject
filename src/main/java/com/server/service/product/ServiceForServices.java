@@ -52,9 +52,14 @@ public class ServiceForServices {
 
         if (servicesRepository.existsById(id)) {
 
-            Services services = new Services();
-            services.setId(id);
-            services.setProductName(servicesDto.productName());
+            Services services = servicesRepository.getReferenceById(id);
+
+            if (!servicesDto.productName().isBlank()){
+
+                services.setProductName(servicesDto.productName());
+
+            }
+
             services.setAmount(servicesDto.amount());
 
             servicesRepository.save(services);

@@ -43,9 +43,14 @@ public class GoodsService{
 
         if (goodsRepository.existsById(id)) {
 
-            Goods goods = new Goods();
-            goods.setId(id);
-            goods.setProductName(goodsDto.productName());
+            Goods goods = goodsRepository.getReferenceById(id);
+
+            if (!goodsDto.productName().isBlank()){
+
+                goods.setProductName(goodsDto.productName());
+
+            }
+
             goods.setCategory(goodsDto.category());
             goods.setAmount(goodsDto.amount());
 
