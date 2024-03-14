@@ -2,7 +2,7 @@ package com.server.model;
 
 import com.server.model.product.Goods;
 import com.server.model.product.Services;
-import com.server.model.users.Client;
+import com.server.model.user.Client;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

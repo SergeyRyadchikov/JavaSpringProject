@@ -1,6 +1,6 @@
 package com.server.service.product;
 
-import com.server.dto.products.GoodsDto;
+import com.server.dto.product.GoodsDto;
 import com.server.model.product.Goods;
 import com.server.repository.product.GoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;

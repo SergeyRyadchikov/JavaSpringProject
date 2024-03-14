@@ -2,7 +2,7 @@ package com.server.controller.restControllers;
 
 import com.server.model.Purchase;
 import com.server.model.product.Goods;
-import com.server.service.users.clientsService.ClientServiceImpl;
+import com.server.service.user.clientsService.ClientService;
 import com.server.service.PurchaseServiceImpl;
 import com.server.service.product.GoodsService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,13 +25,13 @@ public class RestPurchaseController {
 
     private final PurchaseServiceImpl purchaseService;
     private final GoodsService productService;
-    private final ClientServiceImpl clientService;
+    private final ClientService clientService;
 
     @Autowired
     public RestPurchaseController(
             PurchaseServiceImpl purchaseService,
             GoodsService productService,
-            ClientServiceImpl clientService
+            ClientService clientService
     ) {
         this.purchaseService = purchaseService;
         this.productService = productService;

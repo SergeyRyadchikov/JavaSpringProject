@@ -1,6 +1,6 @@
 package com.server.controller.restControllers.product;
 
-import com.server.dto.products.ServicesDto;
+import com.server.dto.product.ServicesDto;
 import com.server.model.product.Services;
 import com.server.service.product.ServiceForServices;
 import org.springframework.beans.factory.annotation.Autowired;

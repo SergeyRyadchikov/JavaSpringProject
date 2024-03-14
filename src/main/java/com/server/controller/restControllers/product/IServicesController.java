@@ -1,6 +1,6 @@
 package com.server.controller.restControllers.product;
 
-import com.server.dto.products.ServicesDto;
+import com.server.dto.product.ServicesDto;
 import com.server.model.product.Services;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
