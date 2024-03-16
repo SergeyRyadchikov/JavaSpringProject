@@ -1,4 +1,4 @@
-package com.server.controller.rest.purchase;
+package com.server.controller.purchase;
 
 import com.server.entity.purchase.Purchase;
 import io.swagger.v3.oas.annotations.tags.Tag;

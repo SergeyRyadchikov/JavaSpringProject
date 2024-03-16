@@ -1,4 +1,4 @@
-package com.server.controller.rest.user;
+package com.server.controller.user;
 
 import com.server.dto.user.ClientDto;
 import com.server.dto.user.UserRegistrationDto;

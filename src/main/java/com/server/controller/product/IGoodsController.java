@@ -1,4 +1,4 @@
-package com.server.controller.rest.product;
+package com.server.controller.product;
 
 import com.server.dto.product.GoodsDto;
 import com.server.entity.product.Goods;
