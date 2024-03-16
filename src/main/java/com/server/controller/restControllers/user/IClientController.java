@@ -32,7 +32,7 @@ public interface IClientController {
      * @return
      */
     @RequestMapping(value = "/client",method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<Client>> readAll();
 
 
@@ -42,7 +42,7 @@ public interface IClientController {
      * @return
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
     public ResponseEntity<Client> readId(@PathVariable(name = "id") int id);
 
 
@@ -53,7 +53,7 @@ public interface IClientController {
      * @return
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
     public ResponseEntity<?> update(
             @PathVariable(name = "id") int id,
             @RequestBody ClientDto clientDto
@@ -76,7 +76,7 @@ public interface IClientController {
      * @return
      */
     @RequestMapping(value = "client/filter-by-gender",method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<Client>> filterByGender(@RequestParam("gender") Gender gender);
 
 
@@ -86,6 +86,6 @@ public interface IClientController {
      * @return
      */
     @RequestMapping(value = "client/filter-by-phone",method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Client> filterByPhone(@RequestParam("phone") String phone);
 }

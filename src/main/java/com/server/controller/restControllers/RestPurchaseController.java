@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class RestPurchaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public ResponseEntity<?> create(@RequestParam("client id")int clientId, @RequestParam("product id")int[] productId)
     {
         List<Goods> products = new ArrayList<>();
@@ -51,6 +53,7 @@ public class RestPurchaseController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<Purchase>> read() {
         final List<Purchase> purchases = purchaseService.readAll();
 
@@ -59,6 +62,7 @@ public class RestPurchaseController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public ResponseEntity<Purchase> read(@PathVariable(name = "id") int id) {
         final Purchase purchase = purchaseService.read(id);
 
@@ -68,6 +72,7 @@ public class RestPurchaseController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Purchase purchase) {
         final boolean updated = purchaseService.update(purchase, id);
 
@@ -77,6 +82,7 @@ public class RestPurchaseController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     public ResponseEntity<?> delete(@PathVariable(name = "id") int id) {
         final boolean deleted = purchaseService.delete(id);
 

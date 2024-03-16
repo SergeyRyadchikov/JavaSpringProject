@@ -4,6 +4,7 @@ import com.server.dto.product.GoodsDto;
 import com.server.model.product.Goods;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public interface IGoodsController {
      * @return
      */
     @RequestMapping(value = "/goods", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> create(@RequestBody GoodsDto goodsDto);
 
 
@@ -31,6 +33,7 @@ public interface IGoodsController {
      * @return
      */
     @RequestMapping(value = "/goods", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
     public ResponseEntity<List<Goods>> readAll();
 
 
@@ -41,6 +44,7 @@ public interface IGoodsController {
      * @return
      */
     @RequestMapping(value = "/goods/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
     public ResponseEntity<Goods> readId(@PathVariable(name = "id") int id);
 
 
@@ -52,6 +56,7 @@ public interface IGoodsController {
      * @return
      */
     @RequestMapping(value = "/goods/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody GoodsDto goodsDto);
 
 
@@ -62,5 +67,6 @@ public interface IGoodsController {
      * @return
      */
     @RequestMapping(value = "/goods/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable(name = "id") int id);
 }

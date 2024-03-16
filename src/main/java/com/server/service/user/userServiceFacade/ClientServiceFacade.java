@@ -11,6 +11,7 @@ import com.server.service.user.clientsService.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto, Integer> {
@@ -32,7 +33,7 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
 
         ApiUsers apiUser = new ApiUsers();
         apiUser.setPhone(userRegistrationDto.phone());
-        apiUser.setRole(Role.CLIENT);
+        apiUser.setRole(Role.LEAD);
         apiUser.setPassword(userRegistrationDto.password());
 
         apiUsersService.create(apiUser);
@@ -64,7 +65,17 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
     @Override
     public Client update(ClientDto clientDto, Integer id) {
 
-        return clientService.update(clientDto, id);
+        ApiUsers apiUsers = apiUsersService.findApiUsersByPhone(clientService.read(id).getPhone());
+
+        Client client = clientService.update(clientDto, id);
+
+        if (apiUsers != null){
+
+            this.updateRole(client, apiUsers);
+
+        }
+
+        return client;
 
     }
 
@@ -84,6 +95,22 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
     public Client findByPhone(String phone) {
 
         return clientService.findByPhone(phone);
+
+    }
+
+    private void updateRole(Client client, ApiUsers apiUsers){
+
+        if (apiUsers.getRole() == Role.LEAD){
+
+            if (!client.getName().isBlank() && !client.getEmail().isBlank()){
+
+                apiUsers.setRole(Role.CLIENT);
+
+                apiUsersService.update(apiUsers, apiUsers.getId());
+
+            }
+
+        }
 
     }
 

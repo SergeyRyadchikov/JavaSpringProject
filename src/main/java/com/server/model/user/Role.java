@@ -1,5 +1,5 @@
 package com.server.model.user;
 
 public enum Role {
-    ADMIN, CLIENT
+    ADMIN, CLIENT, LEAD
 }

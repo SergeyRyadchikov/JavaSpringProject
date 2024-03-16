@@ -1,5 +1,6 @@
 package com.server.controller.templatesControllers;
 
+import com.server.dto.user.ClientDto;
 import com.server.model.user.Client;
 import com.server.service.user.clientsService.ClientService;
 import jakarta.validation.Valid;
@@ -34,7 +35,7 @@ public class ClientDitailsController {
     @PostMapping ("/clients/{id}")
     public String updateClient
             (
-            @Valid Client client,
+            @Valid ClientDto client,
             Model model,
             @PathVariable(name = "id") int id
             )

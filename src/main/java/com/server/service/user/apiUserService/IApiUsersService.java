@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface IApiUsersService<A, I extends Number> extends AppService<ApiUsers, Integer> {
 
-    Optional<ApiUsers> findApiUsersByPhone(String phone);
+    ApiUsers findApiUsersByPhone(String phone);
 }

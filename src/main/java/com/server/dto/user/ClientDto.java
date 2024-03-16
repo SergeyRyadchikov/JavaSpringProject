@@ -4,7 +4,6 @@ import com.server.model.user.Gender;
 
 public record ClientDto(
         String name,
-        String phone,
         String email,
         Gender gender
 ) {
