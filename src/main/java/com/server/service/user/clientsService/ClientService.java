@@ -3,8 +3,8 @@ package com.server.service.user.clientsService;
 import com.server.annotation.LogException;
 import com.server.annotation.LogExecution;
 import com.server.dto.user.ClientDto;
-import com.server.model.user.Client;
-import com.server.model.user.Gender;
+import com.server.entity.user.Client;
+import com.server.entity.user.Gender;
 import com.server.repository.user.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ public class ClientService{
 
     @LogExecution
     @LogException
-    public Client read(Integer id) {
+    public Client readId(Integer id) {
 
         return (Client) clientRepository.getReferenceById(id);
 

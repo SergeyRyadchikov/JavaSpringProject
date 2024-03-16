@@ -2,7 +2,7 @@ package com.server.service.user.moderatorService;
 
 
 import com.server.dto.user.ModeratorDto;
-import com.server.model.user.Moderator;
+import com.server.entity.user.Moderator;
 import com.server.repository.user.ModeratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class ModeratorService{
 
     }
 
-    public Moderator read(Integer id) {
+    public Moderator readId(Integer id) {
 
         return (Moderator) moderatorRepository.getReferenceById(id);
 

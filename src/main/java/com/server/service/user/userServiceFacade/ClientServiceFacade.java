@@ -2,16 +2,15 @@ package com.server.service.user.userServiceFacade;
 
 import com.server.dto.user.ClientDto;
 import com.server.dto.user.UserRegistrationDto;
-import com.server.model.user.ApiUsers;
-import com.server.model.user.Client;
-import com.server.model.user.Gender;
-import com.server.model.user.Role;
+import com.server.entity.user.ApiUsers;
+import com.server.entity.user.Client;
+import com.server.entity.user.Gender;
+import com.server.entity.user.Role;
 import com.server.service.user.apiUserService.ApiUsersService;
 import com.server.service.user.clientsService.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto, Integer> {
@@ -58,14 +57,14 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
     @Override
     public Client read(Integer id) {
 
-        return clientService.read(id);
+        return clientService.readId(id);
 
     }
 
     @Override
     public Client update(ClientDto clientDto, Integer id) {
 
-        ApiUsers apiUsers = apiUsersService.findApiUsersByPhone(clientService.read(id).getPhone());
+        ApiUsers apiUsers = apiUsersService.findApiUsersByPhone(clientService.readId(id).getPhone());
 
         Client client = clientService.update(clientDto, id);
 

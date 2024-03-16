@@ -2,9 +2,9 @@ package com.server.service.user.userServiceFacade;
 
 import com.server.dto.user.ModeratorDto;
 import com.server.dto.user.UserRegistrationDto;
-import com.server.model.user.ApiUsers;
-import com.server.model.user.Moderator;
-import com.server.model.user.Role;
+import com.server.entity.user.ApiUsers;
+import com.server.entity.user.Moderator;
+import com.server.entity.user.Role;
 import com.server.service.user.apiUserService.ApiUsersService;
 import com.server.service.user.moderatorService.ModeratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +55,7 @@ public class ModeratorServiceFacade implements IUserServiceFacade<Moderator, Mod
     @Override
     public Moderator read(Integer id) {
 
-        return moderatorService.read(id);
+        return moderatorService.readId(id);
 
     }
 

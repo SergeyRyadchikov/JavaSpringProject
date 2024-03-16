@@ -1,6 +1,6 @@
 package com.server.service.user.apiUserService;
 
-import com.server.model.user.ApiUsers;
+import com.server.entity.user.ApiUsers;
 import com.server.repository.user.ApiUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ApiUsersService implements IApiUsersService<ApiUsers, Integer> {
+public class ApiUsersService implements IApiUsersService<ApiUsers, Integer, String> {
 
     @Autowired
     private ApiUsersRepository apiUsersRepository;
@@ -35,9 +35,9 @@ public class ApiUsersService implements IApiUsersService<ApiUsers, Integer> {
     }
 
     @Override
-    public ApiUsers read(Integer id) {
+    public ApiUsers readId(Integer id) {
 
-        return (ApiUsers) apiUsersRepository.getReferenceById(id);
+        return apiUsersRepository.getReferenceById(id);
 
     }
 

@@ -1,6 +1,6 @@
 package com.server.dto.product;
 
-import com.server.model.product.CategoryGoods;
+import com.server.entity.product.CategoryGoods;
 
 public record GoodsDto(
         String productName,

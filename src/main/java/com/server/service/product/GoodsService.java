@@ -1,7 +1,7 @@
 package com.server.service.product;
 
 import com.server.dto.product.GoodsDto;
-import com.server.model.product.Goods;
+import com.server.entity.product.Goods;
 import com.server.repository.product.GoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ public class GoodsService{
         return goodsRepository.findAll();
     }
 
-    public Goods read(Integer id) {
+    public Goods readId(Integer id) {
         return goodsRepository.getReferenceById(id);
     }
 

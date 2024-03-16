@@ -1,10 +1,21 @@
 package com.server.service.user.apiUserService;
 
-import com.server.model.user.ApiUsers;
-import com.server.service.AppService;
-import java.util.Optional;
+import com.server.entity.user.ApiUsers;
+import java.util.List;
 
-public interface IApiUsersService<A, I extends Number> extends AppService<ApiUsers, Integer> {
 
-    ApiUsers findApiUsersByPhone(String phone);
+public interface IApiUsersService<T, tId, tPhone> {
+
+    void create(T t);
+    List<T> readAll();
+
+
+    T readId(tId id);
+
+
+    boolean update(T t, tId id);
+
+
+    boolean delete(tId id);
+    ApiUsers findApiUsersByPhone(tPhone phone);
 }

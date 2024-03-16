@@ -1,8 +1,8 @@
 package com.server.repository.user;
 
 
-import com.server.model.user.Client;
-import com.server.model.user.Gender;
+import com.server.entity.user.Client;
+import com.server.entity.user.Gender;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 

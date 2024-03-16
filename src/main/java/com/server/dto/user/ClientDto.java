@@ -1,6 +1,6 @@
 package com.server.dto.user;
 
-import com.server.model.user.Gender;
+import com.server.entity.user.Gender;
 
 public record ClientDto(
         String name,
