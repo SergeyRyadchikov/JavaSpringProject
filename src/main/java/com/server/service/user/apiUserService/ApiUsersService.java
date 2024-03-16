@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ApiUsersService implements IApiUsersService<ApiUsers, Integer> {
@@ -80,9 +81,10 @@ public class ApiUsersService implements IApiUsersService<ApiUsers, Integer> {
     @Override
     public ApiUsers findApiUsersByPhone(String phone) {
 
-        ApiUsers apiUser = apiUsersRepository.findApiUsersByPhone(phone);
+        Optional<ApiUsers> apiUsersOptional = apiUsersRepository.findApiUsersByPhone(phone);
 
-        return apiUser != null ?  apiUser : null;
+        return apiUsersOptional.orElse(null);
         
     }
+
 }

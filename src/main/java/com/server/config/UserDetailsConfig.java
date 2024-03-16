@@ -1,6 +1,7 @@
 package com.server.config;
 
 import com.server.model.user.ApiUsers;
+import com.server.model.user.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,6 +32,7 @@ public class UserDetailsConfig implements UserDetails {
     public String getUsername() {
         return apiUsers.getPhone();
     }
+
 
     @Override
     public boolean isAccountNonExpired() {

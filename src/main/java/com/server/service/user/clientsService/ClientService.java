@@ -55,12 +55,6 @@ public class ClientService{
 
             }
 
-            if (!clientDto.phone().isBlank()) {
-
-                client.setPhone(clientDto.phone());
-
-            }
-
             if (!clientDto.email().isBlank()){
 
                 client.setEmail(clientDto.email());

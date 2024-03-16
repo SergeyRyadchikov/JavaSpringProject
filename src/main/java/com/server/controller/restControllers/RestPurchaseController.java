@@ -9,9 +9,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +61,11 @@ public class RestPurchaseController {
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<Purchase>> read() {
+
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.getAuthentication().getName();
+        System.out.println("Пользователь: " + securityContext.getAuthentication().getName());
+
         final List<Purchase> purchases = purchaseService.readAll();
 
         return purchases != null &&  !purchases.isEmpty()

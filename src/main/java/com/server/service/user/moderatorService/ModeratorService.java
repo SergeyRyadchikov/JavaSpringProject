@@ -46,12 +46,6 @@ public class ModeratorService{
 
             }
 
-            if (!moderatorDto.phone().isBlank()){
-
-                moderator.setPhone(moderatorDto.phone());
-
-            }
-
             moderatorRepository.save(moderator);
 
             return moderator;
