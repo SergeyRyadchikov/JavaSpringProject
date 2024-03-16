@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -24,7 +23,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    public ResponseEntity<?> create(
+    ResponseEntity<?> create(
             @RequestParam("goods")int[] goodsId,
             @RequestParam("services")int[] servicesId);
 
@@ -39,7 +38,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/manual-create", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<?> manualCreate(
+    ResponseEntity<?> manualCreate(
             @RequestParam("goods")int[] goodsId,
             @RequestParam("services")int[] servicesId,
             @RequestParam("phone")String phone);
@@ -52,7 +51,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    public ResponseEntity<List<Purchase>> readAll();
+    ResponseEntity<List<Purchase>> readAll();
 
 
 
@@ -63,7 +62,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    public ResponseEntity<Purchase> readId(@PathVariable(name = "id") int id);
+    ResponseEntity<Purchase> readId(@PathVariable(name = "id") int id);
 
 
 
@@ -76,7 +75,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    public ResponseEntity<?> update(
+    ResponseEntity<?> update(
             @PathVariable(name = "id") int id,
             @RequestParam("goods")int[] goodsId,
             @RequestParam("services")int[] servicesId);
@@ -90,6 +89,6 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") int id);
+    ResponseEntity<?> delete(@PathVariable(name = "id") int id);
 
 }

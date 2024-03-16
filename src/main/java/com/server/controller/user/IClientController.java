@@ -24,7 +24,7 @@ public interface IClientController {
      * @return
      */
     @RequestMapping(value = "/new-client",method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody UserRegistrationDto clientRegDto);
+    ResponseEntity<?> create(@RequestBody UserRegistrationDto clientRegDto);
 
 
     /**
@@ -33,7 +33,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "/client",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<List<Client>> readAll();
+    ResponseEntity<List<Client>> readAll();
 
 
     /**
@@ -43,7 +43,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
-    public ResponseEntity<Client> readId(@PathVariable(name = "id") int id);
+    ResponseEntity<Client> readId(@PathVariable(name = "id") int id);
 
 
     /**
@@ -54,7 +54,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
-    public ResponseEntity<?> update(
+    ResponseEntity<?> update(
             @PathVariable(name = "id") int id,
             @RequestBody ClientDto clientDto
     );
@@ -67,7 +67,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") int id);
+    ResponseEntity<?> delete(@PathVariable(name = "id") int id);
 
 
     /**
@@ -77,7 +77,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "client/filter-by-gender",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<List<Client>> filterByGender(@RequestParam("gender") Gender gender);
+    ResponseEntity<List<Client>> filterByGender(@RequestParam("gender") Gender gender);
 
 
     /**
@@ -87,5 +87,5 @@ public interface IClientController {
      */
     @RequestMapping(value = "client/filter-by-phone",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<Client> filterByPhone(@RequestParam("phone") String phone);
+    ResponseEntity<Client> filterByPhone(@RequestParam("phone") String phone);
 }

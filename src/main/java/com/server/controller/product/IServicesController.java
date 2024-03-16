@@ -21,7 +21,7 @@ public interface IServicesController {
      */
     @RequestMapping(value = "/services", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<?> create(@RequestBody ServicesDto servicesDto);
+    ResponseEntity<?> create(@RequestBody ServicesDto servicesDto);
 
 
 
@@ -31,7 +31,7 @@ public interface IServicesController {
      */
     @RequestMapping(value = "/services", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
-    public ResponseEntity<List<Services>> readAll();
+    ResponseEntity<List<Services>> readAll();
 
 
 
@@ -42,7 +42,7 @@ public interface IServicesController {
      */
     @RequestMapping(value = "/services/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
-    public ResponseEntity<Services> readId(@PathVariable(name = "id") int id);
+    ResponseEntity<Services> readId(@PathVariable(name = "id") int id);
 
 
 
@@ -54,7 +54,7 @@ public interface IServicesController {
      */
     @RequestMapping(value = "/services/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody ServicesDto servicesDto);
+    ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody ServicesDto servicesDto);
 
 
 
@@ -65,6 +65,6 @@ public interface IServicesController {
      */
     @RequestMapping(value = "/services/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") int id);
+    ResponseEntity<?> delete(@PathVariable(name = "id") int id);
 
 }

@@ -23,7 +23,7 @@ public interface IModeratorController {
      * @return
      */
     @RequestMapping(value = "/new-moderator", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody UserRegistrationDto userRegistrationDto);
+    ResponseEntity<?> create(@RequestBody UserRegistrationDto userRegistrationDto);
 
 
     /**
@@ -32,7 +32,7 @@ public interface IModeratorController {
      */
     @RequestMapping(value = "/moderator", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<List<Moderator>> readAll();
+    ResponseEntity<List<Moderator>> readAll();
 
 
     /**
@@ -42,7 +42,7 @@ public interface IModeratorController {
      */
     @RequestMapping(value = "/moserator/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Moderator> readId(@PathVariable(name = "id") int id);
+    ResponseEntity<Moderator> readId(@PathVariable(name = "id") int id);
 
 
     /**
@@ -53,7 +53,7 @@ public interface IModeratorController {
      */
     @RequestMapping(value = "/moderator/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> update(
+    ResponseEntity<?> update(
             @PathVariable(name = "id") int id,
             @RequestBody ModeratorDto moderatorDto
     );
@@ -66,7 +66,7 @@ public interface IModeratorController {
      */
     @RequestMapping(value = "/moderator/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") int id);
+    ResponseEntity<?> delete(@PathVariable(name = "id") int id);
 
 
     /**
@@ -76,5 +76,5 @@ public interface IModeratorController {
      */
     @RequestMapping(value = "moderator/filter-by-phone",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<Moderator> filterByPhone(@RequestParam("phone") String phone);
+    ResponseEntity<Moderator> filterByPhone(@RequestParam("phone") String phone);
 }
