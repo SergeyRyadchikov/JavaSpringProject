@@ -1,8 +1,8 @@
 package com.server.controller.user;
 
 import com.server.dto.user.ModeratorDto;
+import com.server.dto.user.RequestModeratorDto;
 import com.server.dto.user.UserRegistrationDto;
-import com.server.entity.user.Moderator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,7 +23,7 @@ public interface IModeratorController {
      * @return
      */
     @RequestMapping(value = "/new-moderator", method = RequestMethod.POST)
-    ResponseEntity<?> create(@RequestBody UserRegistrationDto userRegistrationDto);
+    ResponseEntity<RequestModeratorDto> create(@RequestBody UserRegistrationDto userRegistrationDto);
 
 
     /**
@@ -32,7 +32,7 @@ public interface IModeratorController {
      */
     @RequestMapping(value = "/moderator", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN')")
-    ResponseEntity<List<Moderator>> readAll();
+    ResponseEntity<List<RequestModeratorDto>> readAll();
 
 
     /**
@@ -42,7 +42,7 @@ public interface IModeratorController {
      */
     @RequestMapping(value = "/moserator/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN')")
-    ResponseEntity<Moderator> readId(@PathVariable(name = "id") int id);
+    ResponseEntity<RequestModeratorDto> readId(@PathVariable(name = "id") int id);
 
 
     /**
@@ -53,7 +53,7 @@ public interface IModeratorController {
      */
     @RequestMapping(value = "/moderator/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('ADMIN')")
-    ResponseEntity<?> update(
+    ResponseEntity<RequestModeratorDto> update(
             @PathVariable(name = "id") int id,
             @RequestBody ModeratorDto moderatorDto
     );
@@ -76,5 +76,7 @@ public interface IModeratorController {
      */
     @RequestMapping(value = "moderator/filter-by-phone",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    ResponseEntity<Moderator> filterByPhone(@RequestParam("phone") String phone);
+    ResponseEntity<RequestModeratorDto> filterByPhone(@RequestParam("phone") String phone);
+
+
 }

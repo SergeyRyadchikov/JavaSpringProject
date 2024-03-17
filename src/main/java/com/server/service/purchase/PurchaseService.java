@@ -1,5 +1,6 @@
 package com.server.service.purchase;
 
+import com.server.dto.purchase.RequestPurchaseDto;
 import com.server.entity.purchase.Purchase;
 import com.server.entity.product.Goods;
 import com.server.entity.product.Services;
@@ -42,6 +43,39 @@ public class PurchaseService {
         this.serviceForServices = serviceForServices;
     }
 
+
+    public RequestPurchaseDto serialisInDtoObject(Purchase purchase){
+
+        return new RequestPurchaseDto(
+                purchase.getId(),
+                purchase.getGoodsList(),
+                purchase.getServicesList(),
+                purchase.getPurchaseAmount(),
+                purchase.getStatus(),
+                purchase.getClient().getId()
+        );
+
+    }
+
+    public List<RequestPurchaseDto> serialisInListDtoObject(List<Purchase> purchaseList){
+        List<RequestPurchaseDto> purchaseDtoList = new ArrayList<>();
+
+        for(Purchase purchase : purchaseList){
+
+            purchaseDtoList.add(new RequestPurchaseDto(
+                    purchase.getId(),
+                    purchase.getGoodsList(),
+                    purchase.getServicesList(),
+                    purchase.getPurchaseAmount(),
+                    purchase.getStatus(),
+                    purchase.getClient().getId()
+            ));
+
+        }
+
+        return purchaseDtoList;
+
+    }
 
     public Purchase create(int[] goodsId, int[] servicesId) {
 

@@ -1,5 +1,6 @@
 package com.server.controller.purchase;
 
+import com.server.dto.purchase.RequestPurchaseDto;
 import com.server.entity.purchase.Purchase;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    ResponseEntity<?> create(
+    ResponseEntity<RequestPurchaseDto> create(
             @RequestParam("goods")int[] goodsId,
             @RequestParam(value = "services", required = false)int[] servicesId);
 
@@ -38,7 +39,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/manual-create", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    ResponseEntity<?> manualCreate(
+    ResponseEntity<RequestPurchaseDto> manualCreate(
             @RequestParam("goods")int[] goodsId,
             @RequestParam("services")int[] servicesId,
             @RequestParam("phone")String phone);
@@ -51,7 +52,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    ResponseEntity<List<Purchase>> readAll();
+    ResponseEntity<List<RequestPurchaseDto>> readAll();
 
 
 
@@ -62,7 +63,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    ResponseEntity<Purchase> readId(@PathVariable(name = "id") int id);
+    ResponseEntity<RequestPurchaseDto> readId(@PathVariable(name = "id") int id);
 
 
 
@@ -75,7 +76,7 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    ResponseEntity<?> update(
+    ResponseEntity<RequestPurchaseDto> update(
             @PathVariable(name = "id") int id,
             @RequestParam("goods")int[] goodsId,
             @RequestParam("services")int[] servicesId);
@@ -100,6 +101,6 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/{id}/pay", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    ResponseEntity<Purchase> pay(@PathVariable(name = "id") int id);
+    ResponseEntity<RequestPurchaseDto> pay(@PathVariable(name = "id") int id);
 
 }

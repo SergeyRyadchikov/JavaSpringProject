@@ -1,6 +1,6 @@
 package com.server.controller.purchase;
 
-import com.server.entity.purchase.Purchase;
+import com.server.dto.purchase.RequestPurchaseDto;
 import com.server.service.purchase.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,19 +22,11 @@ public class RestPurchaseController implements IPurchaseController {
 
 
     @Override
-    public ResponseEntity<?> create(int[] goodsId, int[] servicesId){
+    public ResponseEntity<RequestPurchaseDto> create(int[] goodsId, int[] servicesId){
 
-        Purchase purchase = purchaseService.create(goodsId, servicesId);
-
-        return new ResponseEntity<>(purchase, HttpStatus.CREATED);
-
-    }
-
-
-    @Override
-    public ResponseEntity<?> manualCreate(int[] goodsId, int[] servicesId, String phone){
-
-        Purchase purchase = purchaseService.manualCreate(goodsId, servicesId, phone);
+        RequestPurchaseDto purchase = purchaseService.serialisInDtoObject(
+                purchaseService.create(goodsId, servicesId)
+        );
 
         return new ResponseEntity<>(purchase, HttpStatus.CREATED);
 
@@ -42,9 +34,23 @@ public class RestPurchaseController implements IPurchaseController {
 
 
     @Override
-    public ResponseEntity<List<Purchase>> readAll() {
+    public ResponseEntity<RequestPurchaseDto> manualCreate(int[] goodsId, int[] servicesId, String phone){
 
-        final List<Purchase> purchases = purchaseService.readAll();
+        RequestPurchaseDto purchase = purchaseService.serialisInDtoObject(
+                purchaseService.manualCreate(goodsId, servicesId, phone)
+        );
+
+        return new ResponseEntity<>(purchase, HttpStatus.CREATED);
+
+    }
+
+
+    @Override
+    public ResponseEntity<List<RequestPurchaseDto>> readAll() {
+
+        final List<RequestPurchaseDto> purchases = purchaseService.serialisInListDtoObject(
+                purchaseService.readAll()
+        );
 
         return purchases != null &&  !purchases.isEmpty()
                 ? new ResponseEntity<>(purchases, HttpStatus.OK)
@@ -54,9 +60,11 @@ public class RestPurchaseController implements IPurchaseController {
 
 
     @Override
-    public ResponseEntity<Purchase> readId(int id) {
+    public ResponseEntity<RequestPurchaseDto> readId(int id) {
 
-        final Purchase purchase = purchaseService.readId(id);
+        final RequestPurchaseDto purchase = purchaseService.serialisInDtoObject(
+                purchaseService.readId(id)
+        );
 
         return purchase != null
                 ? new ResponseEntity<>(purchase, HttpStatus.OK)
@@ -66,9 +74,11 @@ public class RestPurchaseController implements IPurchaseController {
 
 
     @Override
-    public ResponseEntity<?> update(int id, int[] goodsId, int[] servicesId){
+    public ResponseEntity<RequestPurchaseDto> update(int id, int[] goodsId, int[] servicesId){
 
-        final Purchase purchase = purchaseService.update(id, goodsId, servicesId);
+        final RequestPurchaseDto purchase = purchaseService.serialisInDtoObject(
+                purchaseService.update(id, goodsId, servicesId)
+        );
 
         return purchase != null
                 ? new ResponseEntity<>(purchase, HttpStatus.OK)
@@ -89,7 +99,7 @@ public class RestPurchaseController implements IPurchaseController {
     }
 
     @Override
-    public ResponseEntity<Purchase> pay(int id) {
+    public ResponseEntity<RequestPurchaseDto> pay(int id) {
         return null;
     }
 

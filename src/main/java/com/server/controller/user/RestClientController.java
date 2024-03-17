@@ -1,8 +1,8 @@
 package com.server.controller.user;
 
 import com.server.dto.user.ClientDto;
+import com.server.dto.user.RequestClientDto;
 import com.server.dto.user.UserRegistrationDto;
-import com.server.entity.user.Client;
 import com.server.entity.user.Gender;
 import com.server.service.user.userServiceFacade.ClientServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,11 @@ public class RestClientController implements IClientController{
 
 
     @Override
-    public ResponseEntity<?> create(UserRegistrationDto userRegistrationDto) {
+    public ResponseEntity<RequestClientDto> create(UserRegistrationDto userRegistrationDto) {
 
-        Client client = clientService.create(userRegistrationDto);
+        RequestClientDto client = clientService.serialisInDtoObject(
+                clientService.create(userRegistrationDto)
+        );
 
         return new ResponseEntity<>(client, HttpStatus.CREATED);
 
@@ -33,9 +35,11 @@ public class RestClientController implements IClientController{
 
 
     @Override
-    public ResponseEntity<List<Client>> readAll() {
+    public ResponseEntity<List<RequestClientDto>> readAll() {
 
-        final List<Client> clients = clientService.readAll();
+        final List<RequestClientDto> clients = clientService.serialisInListDtoObject(
+                clientService.readAll()
+        );
 
         return clients != null &&  !clients.isEmpty()
                 ? new ResponseEntity<>(clients, HttpStatus.OK)
@@ -45,9 +49,11 @@ public class RestClientController implements IClientController{
 
 
     @Override
-    public ResponseEntity<Client> readId(int id) {
+    public ResponseEntity<RequestClientDto> readId(int id) {
 
-        final Client client = clientService.read(id);
+        final RequestClientDto client = clientService.serialisInDtoObject(
+                clientService.read(id)
+        );
 
         return client != null
                 ? new ResponseEntity<>(client, HttpStatus.OK)
@@ -57,9 +63,11 @@ public class RestClientController implements IClientController{
 
 
     @Override
-    public ResponseEntity<Client> update(int id, ClientDto clientDto) {
+    public ResponseEntity<RequestClientDto> update(int id, ClientDto clientDto) {
 
-        final Client client = clientService.update(clientDto, id);
+        final RequestClientDto client = clientService.serialisInDtoObject(
+                clientService.update(clientDto, id)
+        );
 
         return client != null
                 ? new ResponseEntity<>(client, HttpStatus.OK)
@@ -81,9 +89,11 @@ public class RestClientController implements IClientController{
 
 
     @Override
-    public ResponseEntity<List<Client>> filterByGender(Gender gender){
+    public ResponseEntity<List<RequestClientDto>> filterByGender(Gender gender){
 
-        final List<Client> clients = clientService.filterByGender(gender);
+        final List<RequestClientDto> clients = clientService.serialisInListDtoObject(
+                clientService.filterByGender(gender)
+        );
 
         return clients != null &&  !clients.isEmpty()
                 ? new ResponseEntity<>(clients, HttpStatus.OK)
@@ -92,9 +102,11 @@ public class RestClientController implements IClientController{
     }
 
     @Override
-    public ResponseEntity<Client> filterByPhone(String phone) {
+    public ResponseEntity<RequestClientDto> filterByPhone(String phone) {
 
-        final Client client = clientService.findByPhone(phone);
+        final RequestClientDto client = clientService.serialisInDtoObject(
+                clientService.findByPhone(phone)
+        );
 
         return client != null
                 ? new ResponseEntity<>(client, HttpStatus.OK)

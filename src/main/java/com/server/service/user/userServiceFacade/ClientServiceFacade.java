@@ -1,6 +1,7 @@
 package com.server.service.user.userServiceFacade;
 
 import com.server.dto.user.ClientDto;
+import com.server.dto.user.RequestClientDto;
 import com.server.dto.user.UserRegistrationDto;
 import com.server.entity.user.ApiUsers;
 import com.server.entity.user.Client;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -130,6 +133,38 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
             }
 
         }
+
+    }
+
+
+    public RequestClientDto serialisInDtoObject(Client client){
+
+        return new RequestClientDto(
+                client.getId(),
+                client.getName(),
+                client.getEmail(),
+                client.getApiUsers().getPhone(),
+                client.getGender()
+        );
+
+    }
+
+    public List<RequestClientDto> serialisInListDtoObject(List<Client> clientList){
+
+        List<RequestClientDto> requestClientDtoList = new ArrayList<>();
+
+        for(Client client : clientList){
+
+            requestClientDtoList.add(new RequestClientDto(
+                            client.getId(),
+                            client.getName(),
+                            client.getEmail(),
+                            client.getApiUsers().getPhone(),
+                            client.getGender())
+            );
+        }
+
+        return requestClientDtoList;
 
     }
 

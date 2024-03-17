@@ -1,6 +1,7 @@
 package com.server.service.user.userServiceFacade;
 
 import com.server.dto.user.ModeratorDto;
+import com.server.dto.user.RequestModeratorDto;
 import com.server.dto.user.UserRegistrationDto;
 import com.server.entity.user.ApiUsers;
 import com.server.entity.user.Moderator;
@@ -9,6 +10,8 @@ import com.server.service.user.apiUserService.ApiUsersService;
 import com.server.service.user.moderatorService.ModeratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -76,6 +79,34 @@ public class ModeratorServiceFacade implements IUserServiceFacade<Moderator, Mod
     public Moderator findByPhone(String phone){
 
         return moderatorService.findByApiUsers(apiUsersService.findApiUsersByPhone(phone));
+
+    }
+
+
+    public RequestModeratorDto serialisInDtoObject(Moderator moderator){
+
+        return new RequestModeratorDto(
+                moderator.getId(),
+                moderator.getName(),
+                moderator.getApiUsers().getPhone()
+        );
+
+    }
+
+
+    public List<RequestModeratorDto> serialisInListDtoObject(List<Moderator> moderatorList){
+
+        List<RequestModeratorDto> moderatorDtoList = new ArrayList<>();
+
+        for(Moderator moderator : moderatorList){
+            moderatorDtoList.add(new RequestModeratorDto(
+                    moderator.getId(),
+                    moderator.getName(),
+                    moderator.getApiUsers().getPhone()
+            ));
+        }
+
+        return moderatorDtoList;
 
     }
 

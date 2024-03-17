@@ -1,8 +1,8 @@
 package com.server.controller.user;
 
 import com.server.dto.user.ClientDto;
+import com.server.dto.user.RequestClientDto;
 import com.server.dto.user.UserRegistrationDto;
-import com.server.entity.user.Client;
 import com.server.entity.user.Gender;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public interface IClientController {
      * @return
      */
     @RequestMapping(value = "/new-client",method = RequestMethod.POST)
-    ResponseEntity<?> create(@RequestBody UserRegistrationDto clientRegDto);
+    ResponseEntity<RequestClientDto> create(@RequestBody UserRegistrationDto clientRegDto);
 
 
     /**
@@ -33,7 +33,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "/client",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    ResponseEntity<List<Client>> readAll();
+    ResponseEntity<List<RequestClientDto>> readAll();
 
 
     /**
@@ -43,7 +43,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
-    ResponseEntity<Client> readId(@PathVariable(name = "id") int id);
+    ResponseEntity<RequestClientDto> readId(@PathVariable(name = "id") int id);
 
 
     /**
@@ -54,7 +54,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
-    ResponseEntity<?> update(
+    ResponseEntity<RequestClientDto> update(
             @PathVariable(name = "id") int id,
             @RequestBody ClientDto clientDto
     );
@@ -77,7 +77,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "client/filter-by-gender",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    ResponseEntity<List<Client>> filterByGender(@RequestParam("gender") Gender gender);
+    ResponseEntity<List<RequestClientDto>> filterByGender(@RequestParam("gender") Gender gender);
 
 
     /**
@@ -87,5 +87,7 @@ public interface IClientController {
      */
     @RequestMapping(value = "client/filter-by-phone",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    ResponseEntity<Client> filterByPhone(@RequestParam("phone") String phone);
+    ResponseEntity<RequestClientDto> filterByPhone(@RequestParam("phone") String phone);
+
+
 }
