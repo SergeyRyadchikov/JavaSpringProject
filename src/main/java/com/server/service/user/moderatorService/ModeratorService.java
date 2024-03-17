@@ -2,6 +2,7 @@ package com.server.service.user.moderatorService;
 
 
 import com.server.dto.user.ModeratorDto;
+import com.server.entity.user.ApiUsers;
 import com.server.entity.user.Moderator;
 import com.server.repository.user.ModeratorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class ModeratorService{
 
     public Moderator readId(Integer id) {
 
-        return (Moderator) moderatorRepository.getReferenceById(id);
+        return moderatorRepository.getReferenceById(id);
 
     }
 
@@ -74,19 +75,9 @@ public class ModeratorService{
 
     }
 
-    public Moderator findByPhone(String phone){
+    public Moderator findByApiUsers(ApiUsers apiUsers){
 
-        Moderator moderator = moderatorRepository.findByPhone(phone);
-
-        if (moderator != null){
-
-            return moderator;
-
-        } else {
-
-            return null;
-
-        }
+        return moderatorRepository.findModeratorByApiUsers(apiUsers);
 
     }
 

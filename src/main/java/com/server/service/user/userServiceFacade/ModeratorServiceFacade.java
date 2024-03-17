@@ -37,7 +37,7 @@ public class ModeratorServiceFacade implements IUserServiceFacade<Moderator, Mod
 
         Moderator moderator = new Moderator();
         moderator.setName(userRegistrationDto.name());
-        moderator.setPhone(userRegistrationDto.phone());
+        moderator.setApiUsers(apiUser);
 
         moderatorService.create(moderator);
 
@@ -75,7 +75,7 @@ public class ModeratorServiceFacade implements IUserServiceFacade<Moderator, Mod
 
     public Moderator findByPhone(String phone){
 
-        return moderatorService.findByPhone(phone);
+        return moderatorService.findByApiUsers(apiUsersService.findApiUsersByPhone(phone));
 
     }
 

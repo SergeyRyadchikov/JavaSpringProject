@@ -88,4 +88,9 @@ public class RestPurchaseController implements IPurchaseController {
 
     }
 
+    @Override
+    public ResponseEntity<Purchase> pay(int id) {
+        return null;
+    }
+
 }

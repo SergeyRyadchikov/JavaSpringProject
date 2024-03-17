@@ -1,5 +1,6 @@
 package com.server.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Schema(description = "Клиент")
 public class Client {
 
@@ -31,10 +33,10 @@ public class Client {
     @Schema(description = "Электронная почта клиента")
     private String email;
 
-    @Column(nullable = true, unique = true)
-    @Schema(description = "Номер телефона клиента")
-    @Size(min=6, max=12)
-    private String phone;
+
+    @OneToOne
+    @JoinColumn(name = "api_users_id")
+    private ApiUsers apiUsers;
 
 
     @Schema(description = "Пол")

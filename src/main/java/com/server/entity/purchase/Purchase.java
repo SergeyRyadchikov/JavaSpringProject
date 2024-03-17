@@ -1,5 +1,6 @@
 package com.server.entity.purchase;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.server.entity.product.Goods;
 import com.server.entity.product.Services;
 import com.server.entity.user.Client;
@@ -16,6 +17,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Schema(description = "Заказ")
 public class Purchase {
 
@@ -44,15 +46,32 @@ public class Purchase {
     @Schema(description = "Сумма заказа")
     private int purchaseAmount;
 
+
+    @Column(nullable = false)
+    @Schema(description = "Статус заказа")
+    @Enumerated(value = EnumType.STRING)
+    private OrderStatus status;
+
+
     public Purchase(List<Goods> goodsList, List<Services> servicesList, Client client) {
         this.goodsList = goodsList;
         this.servicesList = servicesList;
         this.client = client;
+        this.status = OrderStatus.CREATED;
+        int resultAmount = 0;
+        for (Services services : servicesList) {
+            resultAmount += services.getAmount();
+        }
+        for (Goods product : goodsList) {
+            resultAmount += product.getAmount();
+        }
+        this.purchaseAmount = resultAmount;
     }
 
     public Purchase(List<Goods> goodsList, Client client) {
         this.goodsList = goodsList;
         this.client = client;
+        this.status = OrderStatus.CREATED;
         int resultAmount = 0;
         for (Goods product : goodsList) {
             resultAmount += product.getAmount();

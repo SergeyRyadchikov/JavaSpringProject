@@ -25,7 +25,7 @@ public interface IPurchaseController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     ResponseEntity<?> create(
             @RequestParam("goods")int[] goodsId,
-            @RequestParam("services")int[] servicesId);
+            @RequestParam(value = "services", required = false)int[] servicesId);
 
 
 
@@ -90,5 +90,16 @@ public interface IPurchaseController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
     ResponseEntity<?> delete(@PathVariable(name = "id") int id);
+
+
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id}/pay", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
+    ResponseEntity<Purchase> pay(@PathVariable(name = "id") int id);
 
 }

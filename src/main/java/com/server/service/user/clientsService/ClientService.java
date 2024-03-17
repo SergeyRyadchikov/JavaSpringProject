@@ -3,6 +3,7 @@ package com.server.service.user.clientsService;
 import com.server.annotation.LogException;
 import com.server.annotation.LogExecution;
 import com.server.dto.user.ClientDto;
+import com.server.entity.user.ApiUsers;
 import com.server.entity.user.Client;
 import com.server.entity.user.Gender;
 import com.server.repository.user.ClientRepository;
@@ -37,7 +38,7 @@ public class ClientService{
     @LogException
     public Client readId(Integer id) {
 
-        return (Client) clientRepository.getReferenceById(id);
+        return clientRepository.getReferenceById(id);
 
     }
 
@@ -97,24 +98,14 @@ public class ClientService{
     @LogException
     public List<Client> filterByGender(Gender gender){
 
-        List<Client> filterClients = clientRepository.findClientByGender(gender);
-
-        if (!filterClients.isEmpty() || filterClients != null){
-
-            return filterClients;
-
-        } else {
-
-            return null;
-
-        }
+        return clientRepository.findClientByGender(gender);
 
     }
 
 
-    public Client findByPhone(String phone) {
+    public Client findClientByApiUsers(ApiUsers apiUsers) {
 
-        Client client = clientRepository.findByPhone(phone);
+        Client client = clientRepository.findClientByApiUsers(apiUsers);
 
         if (client != null){
 

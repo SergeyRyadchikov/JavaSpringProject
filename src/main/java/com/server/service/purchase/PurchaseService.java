@@ -8,7 +8,7 @@ import com.server.repository.purchase.PurchaseRepository;
 import com.server.service.product.GoodsService;
 import com.server.service.product.ServiceForServices;
 import com.server.service.user.apiUserService.ApiUsersService;
-import com.server.service.user.clientsService.ClientService;
+import com.server.service.user.userServiceFacade.ClientServiceFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +21,7 @@ public class PurchaseService {
 
     private final PurchaseRepository purchaseRepository;
 
-    private final ClientService clientService;
+    private final ClientServiceFacade clientServiceFacade;
 
     private final ApiUsersService apiUsersService;
 
@@ -29,16 +29,14 @@ public class PurchaseService {
 
     private final ServiceForServices serviceForServices;
 
-    private final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     @Autowired
     public PurchaseService(PurchaseRepository purchaseRepository,
-                           ClientService clientService,
-                           ApiUsersService apiUsersService,
+                           ClientServiceFacade clientServiceFacade, ApiUsersService apiUsersService,
                            GoodsService goodsService,
                            ServiceForServices serviceForServices) {
         this.purchaseRepository = purchaseRepository;
-        this.clientService = clientService;
+        this.clientServiceFacade = clientServiceFacade;
         this.apiUsersService = apiUsersService;
         this.goodsService = goodsService;
         this.serviceForServices = serviceForServices;
@@ -46,6 +44,8 @@ public class PurchaseService {
 
 
     public Purchase create(int[] goodsId, int[] servicesId) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         return this.purchaseCreater(goodsId, servicesId, authentication.getName());
 
@@ -60,6 +60,8 @@ public class PurchaseService {
 
     public List<Purchase> readAll() {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         String phone = authentication.getName();
 
         Role role = apiUsersService.findApiUsersByPhone(phone).getRole();
@@ -70,7 +72,7 @@ public class PurchaseService {
 
         } else {
 
-            return purchaseRepository.findAllByClient(clientService.findByPhone(phone));
+            return purchaseRepository.findAllByClient(clientServiceFacade.findByPhone(phone));
 
         }
 
@@ -137,7 +139,7 @@ public class PurchaseService {
 
         List<Services> servicesList;
 
-        if(listId.length != 0){
+        if(listId != null){
 
             servicesList = new ArrayList<>();
 
@@ -167,7 +169,7 @@ public class PurchaseService {
             Purchase purchase = new Purchase(
                     goodsList,
                     servicesList,
-                    clientService.findByPhone(phoneNumber)
+                    clientServiceFacade.findByPhone(phoneNumber)
             );
 
             purchaseRepository.save(purchase);
@@ -178,7 +180,7 @@ public class PurchaseService {
 
             Purchase purchase = new Purchase(
                     goodsList,
-                    clientService.findByPhone(phoneNumber)
+                    clientServiceFacade.findByPhone(phoneNumber)
             );
 
             purchaseRepository.save(purchase);

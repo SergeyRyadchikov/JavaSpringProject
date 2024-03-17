@@ -26,19 +26,19 @@ Content-Type: application/json
 
 {
   "name": "Nina",
-  "phone": "983475763",
-  "password": "111"
+  "phone": "87777777777",
+  "password": "222"
 
 }
 
 
 ### Создать модератора
-POST http://localhost:8080/v1/moderators/new-moderator
+POST http://localhost:8080/v1/new-moderator
 Content-Type: application/json
 
 {
   "name": "Nina",
-  "phone": "983473455763",
+  "phone": "89999999999",
   "password": "111"
 }
 
@@ -47,8 +47,8 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {
-"phone": "+79658452615",
-"password": "123456"
+"phone": "89999999999",
+"password": "111"
 }
 
 

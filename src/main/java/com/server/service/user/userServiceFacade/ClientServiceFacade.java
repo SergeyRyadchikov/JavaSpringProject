@@ -9,6 +9,8 @@ import com.server.entity.user.Role;
 import com.server.service.user.apiUserService.ApiUsersService;
 import com.server.service.user.clientsService.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
         apiUsersService.create(apiUser);
 
         Client client = new Client();
-        client.setPhone(userRegistrationDto.phone());
+        client.setApiUsers(apiUser);
         client.setName(userRegistrationDto.name());
 
         clientService.create(client);
@@ -64,17 +66,35 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
     @Override
     public Client update(ClientDto clientDto, Integer id) {
 
-        ApiUsers apiUsers = apiUsersService.findApiUsersByPhone(clientService.readId(id).getPhone());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        Client client = clientService.update(clientDto, id);
+        String phone = authentication.getName();
 
-        if (apiUsers != null){
+        ApiUsers apiUsers = clientService.readId(id).getApiUsers();
+
+        Role role = apiUsers.getRole();
+
+        if (role == Role.ADMIN){
+
+            Client client = clientService.update(clientDto, id);
 
             this.updateRole(client, apiUsers);
 
-        }
+            return client;
 
-        return client;
+        } else if (this.findByPhone(phone).getId() == id){
+
+            Client client = clientService.update(clientDto, id);
+
+            this.updateRole(client, apiUsers);
+
+            return client;
+
+        } else {
+
+            throw new RuntimeException("Нет доступа для изменений!");
+
+        }
 
     }
 
@@ -93,7 +113,7 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
 
     public Client findByPhone(String phone) {
 
-        return clientService.findByPhone(phone);
+        return clientService.findClientByApiUsers(apiUsersService.findApiUsersByPhone(phone));
 
     }
 
