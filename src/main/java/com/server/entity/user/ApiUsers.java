@@ -17,7 +17,8 @@ public class ApiUsers {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    // Добавить валидацию маски с помощью регулярного выражения
     private String phone;
 
     @Column(nullable = false)
@@ -27,6 +28,7 @@ public class ApiUsers {
     @Column(nullable = false)
     @NotBlank
     @Size(min = 6, max = 250)
+    // Добавить валидацию мин длины и сложности пароля
     private String password;
 
 

@@ -31,6 +31,7 @@ public class Client {
 
     @Column(nullable = true)
     @Schema(description = "Электронная почта клиента")
+    // Добавить валидацию, что есть символ @ и точка после (регуляркой)
     private String email;
 
 

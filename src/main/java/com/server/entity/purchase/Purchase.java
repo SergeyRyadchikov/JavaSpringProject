@@ -29,6 +29,7 @@ public class Purchase {
     @Column(unique = false)
     @ManyToMany
     @Schema(description = "Список товаров")
+    // Добавить валидацию длины списка min = 1
     private List<Goods> goodsList;
 
     @Column(unique = false)

@@ -34,6 +34,7 @@ public class Goods {
 
     @Column(nullable = false)
     @Schema(description = "Стоимость товара")
+    // добавить валидацию на положительные числа
     private int amount;
 
 }

@@ -1,6 +1,7 @@
 package com.server.controller.purchase;
 
 import com.server.dto.purchase.RequestPurchaseDto;
+import com.server.entity.payment.PaymentMethod;
 import com.server.entity.purchase.Purchase;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -101,6 +102,9 @@ public interface IPurchaseController {
      */
     @RequestMapping(value = "/{id}/pay", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
-    ResponseEntity<RequestPurchaseDto> pay(@PathVariable(name = "id") int id);
+    ResponseEntity<?> pay(
+            @PathVariable(name = "id") int id,
+            @RequestParam(name = "Способ оплаты") PaymentMethod paymentMethod
+    );
 
 }

@@ -1,6 +1,7 @@
 package com.server.controller.purchase;
 
 import com.server.dto.purchase.RequestPurchaseDto;
+import com.server.entity.payment.PaymentMethod;
 import com.server.service.purchase.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -99,8 +100,14 @@ public class RestPurchaseController implements IPurchaseController {
     }
 
     @Override
-    public ResponseEntity<RequestPurchaseDto> pay(int id) {
-        return null;
+    public ResponseEntity<?> pay(int id, PaymentMethod paymentMethod) {
+
+        final boolean pay = purchaseService.pay(id, paymentMethod);
+
+        return pay
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+
     }
 
 }

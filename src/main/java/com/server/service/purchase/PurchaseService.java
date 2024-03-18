@@ -1,11 +1,16 @@
 package com.server.service.purchase;
 
 import com.server.dto.purchase.RequestPurchaseDto;
+import com.server.entity.payment.PaymentMethod;
+import com.server.entity.purchase.OrderStatus;
 import com.server.entity.purchase.Purchase;
 import com.server.entity.product.Goods;
 import com.server.entity.product.Services;
+import com.server.entity.user.ApiUsers;
 import com.server.entity.user.Role;
 import com.server.repository.purchase.PurchaseRepository;
+import com.server.service.payment.IPaymentService;
+import com.server.service.payment.paymentServiceFactory.PaymentServiceFactory;
 import com.server.service.product.GoodsService;
 import com.server.service.product.ServiceForServices;
 import com.server.service.user.apiUserService.ApiUsersService;
@@ -30,17 +35,22 @@ public class PurchaseService {
 
     private final ServiceForServices serviceForServices;
 
+    private final PaymentServiceFactory paymentServiceFactory;
+
 
     @Autowired
     public PurchaseService(PurchaseRepository purchaseRepository,
-                           ClientServiceFacade clientServiceFacade, ApiUsersService apiUsersService,
+                           ClientServiceFacade clientServiceFacade,
+                           ApiUsersService apiUsersService,
                            GoodsService goodsService,
-                           ServiceForServices serviceForServices) {
+                           ServiceForServices serviceForServices,
+                           PaymentServiceFactory paymentServiceFactory) {
         this.purchaseRepository = purchaseRepository;
         this.clientServiceFacade = clientServiceFacade;
         this.apiUsersService = apiUsersService;
         this.goodsService = goodsService;
         this.serviceForServices = serviceForServices;
+        this.paymentServiceFactory = paymentServiceFactory;
     }
 
 
@@ -94,11 +104,9 @@ public class PurchaseService {
 
     public List<Purchase> readAll() {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        ApiUsers apiUsers = this.getApiUsers();
 
-        String phone = authentication.getName();
-
-        Role role = apiUsersService.findApiUsersByPhone(phone).getRole();
+        Role role = apiUsers.getRole();
 
         if(role == Role.ADMIN){
 
@@ -106,7 +114,7 @@ public class PurchaseService {
 
         } else {
 
-            return purchaseRepository.findAllByClient(clientServiceFacade.findByPhone(phone));
+            return purchaseRepository.findAllByClient(clientServiceFacade.findByPhone(apiUsers.getPhone()));
 
         }
 
@@ -145,6 +153,67 @@ public class PurchaseService {
         } else {
             return false;
         }
+    }
+
+    public boolean pay(int id, PaymentMethod paymentMethod){
+
+        IPaymentService paymentService = paymentServiceFactory.create(paymentMethod);
+
+        ApiUsers apiUsers = this.getApiUsers();
+
+        Role role = apiUsers.getRole();
+
+        Purchase purchase = purchaseRepository.getReferenceById(id);
+
+        if (role == Role.ADMIN){
+
+            return this.payExecutor(purchase, paymentService);
+
+        } else if (purchase.getClient().getId() == clientServiceFacade.findByPhone(apiUsers.getPhone()).getId()){
+
+            return this.payExecutor(purchase, paymentService);
+
+        } else {
+
+            throw new RuntimeException("Не хватает прав для оплаты заказа");
+
+        }
+
+    }
+
+    private ApiUsers getApiUsers(){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return apiUsersService.findApiUsersByPhone(authentication.getName());
+
+    }
+
+    private boolean payExecutor(Purchase purchase, IPaymentService paymentService){
+
+        if (purchase.getStatus().equals(OrderStatus.CREATED)){
+
+            boolean paymentResult = paymentService.pay(purchase);
+
+            if (paymentResult){
+
+                purchase.setStatus(OrderStatus.PAID);
+                purchaseRepository.save(purchase);
+
+                return paymentResult;
+
+            } else {
+
+                throw new RuntimeException("Не удалось выполнить оплату");
+
+            }
+
+        } else {
+
+            throw new RuntimeException("Статус заказа не подходит для оплаты");
+
+        }
+
     }
 
     private List<Goods> addGoodsInPurchase(int[] listId){

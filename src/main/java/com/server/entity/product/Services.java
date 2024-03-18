@@ -29,6 +29,7 @@ public class Services {
 
     @Column(nullable = false)
     @Schema(description = "Стоимость услуги")
+    // добавить валидацию на положительные числа
     private int amount;
 
 }
