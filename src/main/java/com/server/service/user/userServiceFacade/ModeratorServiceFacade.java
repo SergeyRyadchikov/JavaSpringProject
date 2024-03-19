@@ -83,6 +83,10 @@ public class ModeratorServiceFacade implements IUserServiceFacade<Moderator, Mod
     }
 
 
+    /**
+     * Публичный метод для сериализации данных одного объекта,
+     * полученного из базы данных в Dto для передачи на контроллер
+     */
     public RequestModeratorDto serialisInDtoObject(Moderator moderator){
 
         return new RequestModeratorDto(
@@ -94,6 +98,10 @@ public class ModeratorServiceFacade implements IUserServiceFacade<Moderator, Mod
     }
 
 
+    /**
+     * Публичный метод для сериализации данных списка объектов,
+     * полученных из базы данных в Dto для передачи на контроллер
+     */
     public List<RequestModeratorDto> serialisInListDtoObject(List<Moderator> moderatorList){
 
         List<RequestModeratorDto> moderatorDtoList = new ArrayList<>();

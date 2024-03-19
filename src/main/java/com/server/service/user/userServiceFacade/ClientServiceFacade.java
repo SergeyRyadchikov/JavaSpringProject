@@ -66,16 +66,27 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
 
     }
 
+
+    /** Данный метод проверяет:
+        - права доступа к внесению изменений
+        - сохраняет новые данные
+        - при необходимости и определенных условиях меняет роль пользователя (приватный метод updateRole)
+     */
     @Override
     public Client update(ClientDto clientDto, Integer id) {
+
+        // Получаем все данные по авторизованному пользователю
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         String phone = authentication.getName();
 
-        ApiUsers apiUsers = clientService.readId(id).getApiUsers();
+        ApiUsers apiUsers = apiUsersService.findApiUsersByPhone(phone);
 
         Role role = apiUsers.getRole();
+
+
+        // Если роль авторизованного пользователя - Админ, то применяем изменения
 
         if (role == Role.ADMIN){
 
@@ -85,13 +96,18 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
 
             return client;
 
+        // Если роль авторизованного пользователья не Админ, то проверяем, что ID авторизованного
+        // пользователя совпадает с ID пользователя, по которому мы хотим обновить информацию
+
         } else if (this.findByPhone(phone).getId() == id){
 
             Client client = clientService.update(clientDto, id);
 
-            this.updateRole(client, apiUsers);
+            this.updateRole(client, client.getApiUsers());
 
             return client;
+
+        // Если не сработало ни одно условие, то бросаем исключение об отсутствии прав на изменения
 
         } else {
 
@@ -120,6 +136,11 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
 
     }
 
+
+    /**
+     *  Приватный метод обновляет роль пользователя если текщая роль - Лид
+     *  и переданы все неообходимые данные пользователя для получения роль - Клиент
+     */
     private void updateRole(Client client, ApiUsers apiUsers){
 
         if (apiUsers.getRole() == Role.LEAD){
@@ -137,6 +158,10 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
     }
 
 
+    /**
+     * Публичный метод для сериализации данных одного объекта,
+     * полученного из базы данных в Dto для передачи на контроллер
+     */
     public RequestClientDto serialisInDtoObject(Client client){
 
         return new RequestClientDto(
@@ -149,6 +174,11 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
 
     }
 
+
+    /**
+     * Публичный метод для сериализации данных списка объектов,
+     * полученных из базы данных в Dto для передачи на контроллер
+     */
     public List<RequestClientDto> serialisInListDtoObject(List<Client> clientList){
 
         List<RequestClientDto> requestClientDtoList = new ArrayList<>();

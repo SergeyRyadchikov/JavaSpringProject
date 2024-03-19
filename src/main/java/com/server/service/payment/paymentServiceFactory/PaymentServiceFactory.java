@@ -3,11 +3,14 @@ package com.server.service.payment.paymentServiceFactory;
 import com.server.entity.payment.PaymentMethod;
 import com.server.repository.payment.PaymentRepository;
 import com.server.service.payment.IPaymentService;
+import com.server.service.payment.paymentServiceCreator.PaymentBankCardServiceCreator;
+import com.server.service.payment.paymentServiceCreator.PaymentEWalletServiceCreator;
+import com.server.service.payment.paymentServiceCreator.PaymentFPSServiceCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PaymentServiceFactory {
+public class PaymentServiceFactory implements IPaymentServiceFactory {
 
     private final PaymentRepository paymentRepository;
 
@@ -16,6 +19,7 @@ public class PaymentServiceFactory {
         this.paymentRepository = paymentRepository;
     }
 
+    @Override
     public IPaymentService create(PaymentMethod paymentMethod){
 
         if(paymentMethod == PaymentMethod.BANK_CARD){
