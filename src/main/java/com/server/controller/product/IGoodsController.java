@@ -10,17 +10,17 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("v1/products")
+@RequestMapping("/v1")
 @Tag(
-        name = "Продукты/Услуги",
-        description = "Все методы для работы с продуктами и устлугами"
+        name = "Товары",
+        description = "Все методы для работы с товарами"
 )
 public interface IGoodsController {
 
     /**
-     *
-     * @param goodsDto
-     * @return
+     * Метод для создания нового товара
+     * @param goodsDto характеристики товара
+     * @return информация о добавленном товаре
      */
     @RequestMapping(value = "/goods", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -29,8 +29,8 @@ public interface IGoodsController {
 
 
     /**
-     *
-     * @return
+     * Метод получения списка всех товаров
+     * @return Список всех добавленных товаров
      */
     @RequestMapping(value = "/goods", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
@@ -39,9 +39,9 @@ public interface IGoodsController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для получения одного конкретного товара
+     * @param id идентификатор товара
+     * @return информация об указанном товаре
      */
     @RequestMapping(value = "/goods/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
@@ -50,10 +50,10 @@ public interface IGoodsController {
 
 
     /**
-     *
-     * @param id
-     * @param goodsDto
-     * @return
+     * Метод для обновления товара
+     * @param id идентификатор обновляемого товара
+     * @param goodsDto обновленные характеристики товара
+     * @return обновленная информация об указанном товаре
      */
     @RequestMapping(value = "/goods/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -62,9 +62,9 @@ public interface IGoodsController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод удаления товара
+     * @param id идентификатор товара
+     * @return статус код, соответствующий результату выполнения операции
      */
     @RequestMapping(value = "/goods/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAnyAuthority('ADMIN')")

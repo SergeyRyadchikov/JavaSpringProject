@@ -12,12 +12,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
+/**
+ * Сервис для работы с пользователями
+ */
 @Service
 public class ClientService{
 
     @Autowired
     private ClientRepository clientRepository;
 
+
+    /**
+     * Метод для создания пользователя
+     * @param client данные пользователя
+     */
     @LogExecution
     @LogException
     public void create(Client client) {
@@ -26,6 +34,10 @@ public class ClientService{
 
     }
 
+    /**
+     * Метод получения списка всех пользователей
+     * @return список объектов ПОльзователь
+     */
     @LogExecution
     @LogException
     public List<Client> readAll() {
@@ -34,6 +46,11 @@ public class ClientService{
 
     }
 
+    /**
+     * Метод для получения одного конкретного пользователя
+     * @param id идентификатор пользователя
+     * @return обект Пользовтель
+     */
     @LogExecution
     @LogException
     public Client readId(Integer id) {
@@ -42,19 +59,31 @@ public class ClientService{
 
     }
 
+    /**
+     * Метод для обновления данных пользователя
+     * @param clientDto Обновленные данные пользователя
+     * @param id Идентификатор обновляемого пользователя
+     * @return объект Пользователь с обновленными данными
+     */
     @LogExecution
     @LogException
     public Client update(ClientDto clientDto, Integer id) {
 
+        // Если пользователь с таким идентификатором найден в базе - выполняем обновление данных
+
         if (clientRepository.existsById(id)) {
 
             Client client = clientRepository.getReferenceById(id);
+
+            // Если не передано новое имя пользователя - не обновляем имя
 
             if (!clientDto.name().isBlank()){
 
                 client.setName(clientDto.name());
 
             }
+
+            // Если не передана новая почта пользователя - не обновляем почту
 
             if (!clientDto.email().isBlank()){
 
@@ -76,6 +105,11 @@ public class ClientService{
 
     }
 
+    /**
+     * Метод для удаления пользвоаетля
+     * @param id идентификатор пользователя
+     * @return true - при успешном удалении, false - в противном случае
+     */
     @LogExecution
     @LogException
     public boolean delete(Integer id) {
@@ -93,7 +127,11 @@ public class ClientService{
         }
     }
 
-
+    /**
+     * Метод для фильтрации пользователей по полу
+     * @param gender пол для фильтра
+     * @return списк пользователей с указанным полом
+     */
     @LogExecution
     @LogException
     public List<Client> filterByGender(Gender gender){
@@ -102,7 +140,11 @@ public class ClientService{
 
     }
 
-
+    /**
+     * Метод для поиска клиента по его данным из api_users
+     * @param apiUsers объект api_users пользователя
+     * @return обеъект Пользователь
+     */
     public Client findClientByApiUsers(ApiUsers apiUsers) {
 
         Client client = clientRepository.findClientByApiUsers(apiUsers);

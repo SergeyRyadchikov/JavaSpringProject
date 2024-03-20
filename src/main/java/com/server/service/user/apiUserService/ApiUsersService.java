@@ -21,6 +21,8 @@ public class ApiUsersService implements IApiUsersService<ApiUsers, Integer, Stri
     @Override
     public void create(ApiUsers apiUsers) {
 
+        // Запись захэшированного пароля
+
         apiUsers.setPassword(passwordEncoder.encode(apiUsers.getPassword()));
 
         apiUsersRepository.save(apiUsers);

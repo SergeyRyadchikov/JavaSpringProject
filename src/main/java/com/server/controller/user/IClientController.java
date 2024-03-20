@@ -19,17 +19,17 @@ import java.util.List;
 public interface IClientController {
 
     /**
-     *
-     * @param clientRegDto
-     * @return
+     * Метод для регистрации нового пользователя
+     * @param clientRegDto регистрацинные данные пользователя
+     * @return информацию о зарегистрированном пользователе
      */
     @RequestMapping(value = "/new-client",method = RequestMethod.POST)
     ResponseEntity<RequestClientDto> create(@RequestBody UserRegistrationDto clientRegDto);
 
 
     /**
-     *
-     * @return
+     * Метод для получения списка всех зарегистрированных пользователей
+     * @return список информции по всем пользователям
      */
     @RequestMapping(value = "/client",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -37,9 +37,9 @@ public interface IClientController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для получения информации по одному конкретному пльзователю
+     * @param id идентификатор пользователя
+     * @return Информация по указанному пользователю
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
@@ -47,10 +47,10 @@ public interface IClientController {
 
 
     /**
-     *
-     * @param id
-     * @param clientDto
-     * @return
+     * Метод для обновления информации по пользователю
+     * @param id идентификатор пользователя
+     * @param clientDto обновленная информаци по пользователю
+     * @return обновленная информация по указанному пользователю
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
@@ -61,9 +61,9 @@ public interface IClientController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для удаления пользователя
+     * @param id идентификатор пользователя
+     * @return статус код, соответствующий результату выполнения операции
      */
     @RequestMapping(value = "/client/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -71,9 +71,9 @@ public interface IClientController {
 
 
     /**
-     *
-     * @param gender
-     * @return
+     * Метод для фильтрации пользователей по полу
+     * @param gender пол
+     * @return список пользователей с указанным полом
      */
     @RequestMapping(value = "client/filter-by-gender",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -81,9 +81,9 @@ public interface IClientController {
 
 
     /**
-     *
-     * @param phone
-     * @return
+     * Метод для поиска пользователя по номеру телефона
+     * @param phone номер телефона
+     * @return информация по пользователю с указанным номером телефона
      */
     @RequestMapping(value = "client/filter-by-phone",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")

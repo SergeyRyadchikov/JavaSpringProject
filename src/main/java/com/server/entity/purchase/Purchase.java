@@ -54,6 +54,12 @@ public class Purchase {
     private OrderStatus status;
 
 
+    /**
+     * Конструктор для рассчета стоимости заказа с товарами и услугами
+     * @param goodsList список товаров
+     * @param servicesList список услуг
+     * @param client пользователь, совершающий заказ
+     */
     public Purchase(List<Goods> goodsList, List<Services> servicesList, Client client) {
         this.goodsList = goodsList;
         this.servicesList = servicesList;
@@ -69,6 +75,12 @@ public class Purchase {
         this.purchaseAmount = resultAmount;
     }
 
+
+    /**
+     * Конструктор для создания заказа с товарами, но без услуг
+     * @param goodsList список товаров
+     * @param client пользователь, совершающий заказ
+     */
     public Purchase(List<Goods> goodsList, Client client) {
         this.goodsList = goodsList;
         this.client = client;

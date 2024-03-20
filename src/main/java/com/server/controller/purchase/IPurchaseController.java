@@ -2,7 +2,6 @@ package com.server.controller.purchase;
 
 import com.server.dto.purchase.RequestPurchaseDto;
 import com.server.entity.payment.PaymentMethod;
-import com.server.entity.purchase.Purchase;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,10 +17,10 @@ import java.util.List;
 public interface IPurchaseController {
 
     /**
-     * '
-     * @param goodsId
-     * @param servicesId
-     * @return
+     * Метод создания нового заказа
+     * @param goodsId список товаров
+     * @param servicesId список услуг
+     * @return информация о созданном заказе
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
@@ -32,11 +31,11 @@ public interface IPurchaseController {
 
 
     /**
-     *
-     * @param goodsId
-     * @param servicesId
-     * @param phone
-     * @return
+     * Метод для ручного создания заказа для указанного клиента
+     * @param goodsId список товаров
+     * @param servicesId список услуг
+     * @param phone телефон клиента, совершающего заказ
+     * @return информация о созданном заказе
      */
     @RequestMapping(value = "/manual-create", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -48,8 +47,9 @@ public interface IPurchaseController {
 
 
     /**
-     *
-     * @return
+     * Метод для получения списка всех заказов
+     * @return Все заказы - для пользователя с роль Админ,
+     *          Все заказы пользователя для пользователя с ролью Клиент
      */
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
@@ -58,9 +58,9 @@ public interface IPurchaseController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для получения информации по одному конкретному заказу
+     * @param id идентификатор заказа
+     * @return информация по указанному заказу
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
@@ -69,11 +69,11 @@ public interface IPurchaseController {
 
 
     /**
-     *
-     * @param id
-     * @param goodsId
-     * @param servicesId
-     * @return
+     * Метод для обновления заказа
+     * @param id идентификатор обновляемого заказа
+     * @param goodsId новый список товаров
+     * @param servicesId новый список услуг
+     * @return информация по обновленному заказу
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
@@ -85,9 +85,9 @@ public interface IPurchaseController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для удаления заказа
+     * @param id идентификатор заказа
+     * @return статус код, соответствующий результату выполнения операции
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")
@@ -96,9 +96,10 @@ public interface IPurchaseController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для оплаты заказа
+     * @param id идентификатор заказа
+     * @param paymentMethod способ оплаты
+     * @return статус код, соответствующий результату выполнения операции
      */
     @RequestMapping(value = "/{id}/pay", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT')")

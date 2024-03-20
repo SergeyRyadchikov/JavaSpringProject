@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Сервис для синхронизации работы всех необходимых сервисов для работы с пользователем
+ */
 @Service
 public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto, Integer> {
 
@@ -124,12 +126,22 @@ public class ClientServiceFacade implements IUserServiceFacade<Client, ClientDto
 
     }
 
+    /**
+     * Метод для фильтрации пользователей по полу
+     * @param gender пол для фильтра
+     * @return список пользователей указанного пола
+     */
     public List<Client> filterByGender(Gender gender){
 
         return clientService.filterByGender(gender);
 
     }
 
+    /**
+     * Метод поиска клиента по номеру телефона
+     * @param phone номер телефона
+     * @return обект Пользователь с указанным номером телефона
+     */
     public Client findByPhone(String phone) {
 
         return clientService.findClientByApiUsers(apiUsersService.findApiUsersByPhone(phone));

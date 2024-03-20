@@ -9,15 +9,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/products")
-@Tag(name = "Продукты/Услуги", description = "Все методы для работы с продуктами и услугами")
+@RequestMapping("/v1")
+@Tag(
+        name = "Услуги",
+        description = "Все методы для работы с услугами")
 public interface IServicesController {
 
 
     /**
-     *
-     * @param servicesDto
-     * @return
+     * Метод добавления новой услуги
+     * @param servicesDto характеристики услуги
+     * @return информация о добавленной услуге
      */
     @RequestMapping(value = "/services", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -26,8 +28,8 @@ public interface IServicesController {
 
 
     /**
-     *
-     * @return
+     * Метод для получения списка всех имеющихся услуг
+     * @return список добавленных услуг
      */
     @RequestMapping(value = "/services", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
@@ -36,9 +38,9 @@ public interface IServicesController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для получения одной конкретной услуги
+     * @param id идентификатор услуги
+     * @return информация по указанной услуге
      */
     @RequestMapping(value = "/services/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'CLIENT', 'LEAD')")
@@ -47,10 +49,10 @@ public interface IServicesController {
 
 
     /**
-     *
-     * @param id
-     * @param servicesDto
-     * @return
+     * Метод для обновления характеристик услуги
+     * @param id идентификатор обновляемой услуги
+     * @param servicesDto обновленные характеристики услуги
+     * @return информация об обновленной услуге
      */
     @RequestMapping(value = "/services/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -59,9 +61,9 @@ public interface IServicesController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для удаления услуги
+     * @param id идентификатор услуги
+     * @return статус код, соответствующий результату выполнения операции
      */
     @RequestMapping(value = "/services/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAnyAuthority('ADMIN')")

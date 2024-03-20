@@ -10,10 +10,12 @@ import com.server.service.user.apiUserService.ApiUsersService;
 import com.server.service.user.moderatorService.ModeratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Сервис для синхронизации работы всех необходимых сервисов для работы с администраторами
+ */
 @Service
 public class ModeratorServiceFacade implements IUserServiceFacade<Moderator, ModeratorDto, Integer>{
 
@@ -76,6 +78,11 @@ public class ModeratorServiceFacade implements IUserServiceFacade<Moderator, Mod
 
     }
 
+    /**
+     * Метод для поиска одминистратора по номеру телефона
+     * @param phone номер телефона
+     * @return объект Moderator с указанным номером телефона
+     */
     public Moderator findByPhone(String phone){
 
         return moderatorService.findByApiUsers(apiUsersService.findApiUsersByPhone(phone));

@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+
+/**
+ * Сервис для работы с услугами
+ */
 @Service
 public class ServiceForServices {
 
@@ -21,6 +25,11 @@ public class ServiceForServices {
     }
 
 
+    /**
+     * Медот для создания услуги
+     * @param servicesDto характеристики услуги
+     * @return объект услуги
+     */
     public Services create(ServicesDto servicesDto) {
 
         Services services = new Services();
@@ -34,6 +43,10 @@ public class ServiceForServices {
     }
 
 
+    /**
+     * Метод для получения списка всех услуг
+     * @return список объектов услуги
+     */
     public List<Services> readAll() {
 
         return servicesRepository.findAll();
@@ -41,18 +54,32 @@ public class ServiceForServices {
     }
 
 
+    /**
+     * Метод для получения одной конкретной услуги
+     * @param id идентификатор услуги
+     * @return объект услуги
+     */
     public Services readId(Integer id) {
 
         return servicesRepository.getReferenceById(id);
 
     }
 
-
+    /**
+     * Метод для обновления информации по услуге
+     * @param servicesDto - новые характеристики услуги
+     * @param id идентификатор редактируемой услуги
+     * @return обновленный объект услуги
+     */
     public Services update(ServicesDto servicesDto, Integer id) {
+
+        // Если услуга с таким идентификатором есть в базе выполняем обновление
 
         if (servicesRepository.existsById(id)) {
 
             Services services = servicesRepository.getReferenceById(id);
+
+            // Если не передано новое название, то название не меняем
 
             if (!servicesDto.productName().isBlank()){
 
@@ -75,6 +102,11 @@ public class ServiceForServices {
     }
 
 
+    /**
+     * Метод для удаления конкретной услуги
+     * @param id идентификатор услуги
+     * @return true - при успешном удалении, false - в противном случае
+     */
     public boolean delete(Integer id) {
 
         if (servicesRepository.existsById(id)) {

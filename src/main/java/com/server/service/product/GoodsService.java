@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+
+/**
+ * Сервис для работы с товарами
+ */
 @Service
 public class GoodsService{
 
@@ -19,6 +23,12 @@ public class GoodsService{
 
     }
 
+
+    /**
+     * Метод для создания товара
+     * @param goodsDto характеристики товара
+     * @return объект товара
+     */
     public Goods create(GoodsDto goodsDto) {
 
         Goods goods = new Goods();
@@ -31,19 +41,41 @@ public class GoodsService{
         return goods;
     }
 
+
+    /**
+     * Метод для получения списка всех товаров
+     * @return список объектов товара
+     */
     public List<Goods> readAll() {
         return goodsRepository.findAll();
     }
 
+
+    /**
+     * Метод для получения одного конкретного товара
+     * @param id идентификатор товара
+     * @return объект товара
+     */
     public Goods readId(Integer id) {
         return goodsRepository.getReferenceById(id);
     }
 
+
+    /**
+     * Метод для обновления оодного конкретного товара
+     * @param goodsDto новые характеристики товара
+     * @param id идентификатор редактируемого товара
+     * @return обновленный объект товара
+     */
     public Goods update(GoodsDto goodsDto, Integer id) {
+
+        // Если товар с таким идентификатором есть в базе, то выполняем обновление
 
         if (goodsRepository.existsById(id)) {
 
             Goods goods = goodsRepository.getReferenceById(id);
+
+            // Если не передано новое наименование товара, то оставляем без изменений
 
             if (!goodsDto.productName().isBlank()){
 
@@ -65,6 +97,11 @@ public class GoodsService{
         }
     }
 
+    /**
+     * Метод удаления товара
+     * @param id иентификатор товара
+     * @return true - при успешном удалении, false -  противном случае
+     */
     public boolean delete(Integer id) {
 
         if (goodsRepository.existsById(id)) {

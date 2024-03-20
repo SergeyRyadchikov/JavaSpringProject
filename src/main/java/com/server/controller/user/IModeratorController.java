@@ -18,17 +18,17 @@ import java.util.List;
 public interface IModeratorController {
 
     /**
-     *
-     * @param userRegistrationDto
-     * @return
+     * Метод для регистрации нового администратора
+     * @param userRegistrationDto регистрацинные данные администратора
+     * @return информация по зарегистрированному администратору
      */
     @RequestMapping(value = "/new-moderator", method = RequestMethod.POST)
     ResponseEntity<RequestModeratorDto> create(@RequestBody UserRegistrationDto userRegistrationDto);
 
 
     /**
-     *
-     * @return
+     * Метод для получения списка всех администраторов
+     * @return информация по всем зарегистрированным в системе администраторам
      */
     @RequestMapping(value = "/moderator", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -36,9 +36,9 @@ public interface IModeratorController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для получения информации об одном конкретном администраторе
+     * @param id идентификатор аминистратора
+     * @return информация по указанному администратору
      */
     @RequestMapping(value = "/moserator/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -46,10 +46,10 @@ public interface IModeratorController {
 
 
     /**
-     *
-     * @param id
-     * @param moderatorDto
-     * @return
+     * Метод для обновления информации по администратору
+     * @param id идентификатор администратора
+     * @param moderatorDto обновленная информация администратора
+     * @return обновленная информация по указанному администратору
      */
     @RequestMapping(value = "/moderator/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -60,9 +60,9 @@ public interface IModeratorController {
 
 
     /**
-     *
-     * @param id
-     * @return
+     * Метод для удаления администратора
+     * @param id идентификатор администратора
+     * @return статус код, соответствующий результату выполнения операции
      */
     @RequestMapping(value = "/moderator/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -70,9 +70,9 @@ public interface IModeratorController {
 
 
     /**
-     *
-     * @param phone
-     * @return
+     * Метод для поиска администратора по номеру телефона
+     * @param phone номер телефона
+     * @return информация по администратору с указанным номером телефона
      */
     @RequestMapping(value = "moderator/filter-by-phone",method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
