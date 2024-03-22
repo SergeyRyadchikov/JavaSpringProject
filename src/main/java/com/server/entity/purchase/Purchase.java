@@ -13,7 +13,6 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,22 +23,24 @@ public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Schema(description = "Идентификатор заказа")
+    @Setter
     private int id;
 
     @Column(unique = false)
     @ManyToMany
     @Schema(description = "Список товаров")
-    // Добавить валидацию длины списка min = 1
     private List<Goods> goodsList;
 
     @Column(unique = false)
     @ManyToMany
     @Schema(description = "Список услуг")
+    @Setter
     private List<Services> servicesList;
 
     @ManyToOne()
     @JoinColumn(name = "client_id")
     @Schema(description = "Клиент")
+    @Setter
     private Client client;
 
 
@@ -51,6 +52,7 @@ public class Purchase {
     @Column(nullable = false)
     @Schema(description = "Статус заказа")
     @Enumerated(value = EnumType.STRING)
+    @Setter
     private OrderStatus status;
 
 
@@ -90,5 +92,18 @@ public class Purchase {
             resultAmount += product.getAmount();
         }
         this.purchaseAmount = resultAmount;
+    }
+
+    public void setGoodsList(List<Goods> goodsList) {
+        if (!goodsList.isEmpty()){
+
+            this.goodsList = goodsList;
+
+        } else {
+
+            throw new RuntimeException("Необхдимо выбрать хотя бы один товар");
+
+        }
+
     }
 }

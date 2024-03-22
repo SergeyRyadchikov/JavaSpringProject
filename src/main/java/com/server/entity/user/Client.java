@@ -12,7 +12,6 @@ import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Schema(description = "Клиент")
 public class Client {
@@ -21,30 +20,48 @@ public class Client {
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Schema(description = "Идентификатор клиента")
+    @Setter
     private int id;
 
     @Column(nullable = false)
     @NotBlank
     @Size(min=2, max=50)
     @Schema(description = "Имя клиента")
+    @Setter
     private String name;
 
     @Column(nullable = true)
     @Schema(description = "Электронная почта клиента")
-    // Добавить валидацию, что есть символ @ и точка после (регуляркой)
     private String email;
 
 
     @OneToOne
     @JoinColumn(name = "api_users_id")
+    @Setter
     private ApiUsers apiUsers;
 
 
     @Schema(description = "Пол")
     @Enumerated(EnumType.STRING)
+    @Setter
     private Gender gender;
 
+    public void setEmail(String email) {
 
-    public Client() {
+        if (emailIsValid(email)){
+
+            this.email = email;
+
+        } else {
+
+            throw new RuntimeException("Введен некорректный email адрес");
+
+        }
     }
+
+    private boolean emailIsValid(String email) {
+        return email.matches("^[\\w-\\.]+@[\\w-]+(\\.[\\w-]+)*\\.[a-z]{2,}$");
+    }
+
+
 }

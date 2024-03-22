@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,15 +20,28 @@ public class Services {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Schema(description = "Идентификатор услуги")
+    @Setter
     private int id;
 
     @Column(nullable = false)
     @Schema(description = "Наименование услуги")
+    @Setter
     private String productName;
 
     @Column(nullable = false)
     @Schema(description = "Стоимость услуги")
-    // добавить валидацию на положительные числа
     private int amount;
 
+    public void setAmount(int amount) {
+
+        if (amount > 0){
+
+            this.amount = amount;
+
+        } else {
+
+            throw new RuntimeException("Стоиимость должна быть больше нуля");
+
+        }
+    }
 }
